@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Bajas — Morochos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --cafe: #3B1F0E;
+    --cafe-mid: #6B3A1F;
+    --crema: #F7F0E6;
+    --crema-dark: #EDE0CC;
+    --acento: #C8531A;
+    --acento-soft: #F2E0D6;
+    --verde: #1E7A4A;
+    --verde-soft: #D4EDE0;
+    --amarillo: #B87C12;
+    --amarillo-soft: #FDF3D7;
+    --rojo: #C0392B;
+    --rojo-soft: #FDECEA;
+    --texto: #1A0F08;
+    --texto-mid: #5A3E2B;
+    --borde: #D9C9B5;
+    --sombra: 0 2px 12px rgba(59,31,14,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--crema);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--cafe);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    color: var(--crema);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+  .nav-brand span { color: #D4956A; }
+  .nav-tabs {
+    display: flex;
+    gap: 6px;
+  }
+  .nav-tab {
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.65);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .nav-tab.active {
+    background: var(--acento);
+    border-color: var(--acento);
+    color: white;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; padding: 20px; max-width: 640px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* ── SECTION HEADER ── */
+  .section-head {
+    margin-bottom: 20px;
+  }
+  .section-head h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cafe);
+    line-height: 1.2;
+  }
+  .section-head p {
+    font-size: 14px;
+    color: var(--texto-mid);
+    margin-top: 4px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: var(--sombra);
+    margin-bottom: 16px;
+    border: 1px solid var(--borde);
+  }
+
+  /* ── FORM ── */
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cafe);
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+  .field label .req { color: var(--acento); margin-left: 2px; }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--borde);
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--texto);
+    background: white;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--acento);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%235A3E2B' stroke-width='2' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* motivo chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 7px 12px;
+    border-radius: 20px;
+    border: 1.5px solid var(--borde);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    background: white;
+    color: var(--texto-mid);
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .chip.selected {
+    background: var(--acento);
+    border-color: var(--acento);
+    color: white;
+  }
+
+  /* ── BTN ── */
+  .btn-primary {
+    width: 100%;
+    padding: 15px;
+    background: var(--acento);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .btn-primary:hover { background: #A8431A; }
+  .btn-primary:disabled { background: var(--borde); color: #aaa; cursor: not-allowed; }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1.5px solid var(--borde);
+    color: var(--cafe-mid);
+    padding: 9px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--cafe);
+    color: white;
+    padding: 13px 22px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 999;
+    transition: transform 0.3s ease;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── PANEL STATS ── */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .stat-card {
+    background: white;
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: var(--sombra);
+  }
+  .stat-label { font-size: 12px; font-weight: 600; color: var(--texto-mid); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .stat-value { font-size: 26px; font-weight: 700; color: var(--cafe); line-height: 1; }
+  .stat-sub { font-size: 12px; color: var(--texto-mid); margin-top: 4px; }
+
+  /* ── FILTERS ── */
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .filter-chip {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1.5px solid var(--borde);
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    background: white;
+    color: var(--texto-mid);
+    font-weight: 500;
+  }
+  .filter-chip.active {
+    background: var(--cafe);
+    border-color: var(--cafe);
+    color: white;
+  }
+
+  /* ── TABLE / LIST ── */
+  .baja-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .baja-item {
+    background: white;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px;
+    box-shadow: 0 1px 4px rgba(59,31,14,0.06);
+  }
+  .baja-item-left {}
+  .baja-producto {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--cafe);
+  }
+  .baja-meta {
+    font-size: 12px;
+    color: var(--texto-mid);
+    margin-top: 3px;
+  }
+  .baja-motivo-tag {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+  .tag-receta { background: var(--rojo-soft); color: var(--rojo); }
+  .tag-vencido { background: var(--amarillo-soft); color: var(--amarillo); }
+  .tag-derrame { background: #E8F0FE; color: #1967D2; }
+  .tag-robo { background: #F3E5F5; color: #7B1FA2; }
+  .tag-otro { background: var(--crema-dark); color: var(--cafe-mid); }
+  .tag-calidad { background: var(--verde-soft); color: var(--verde); }
+
+  .baja-item-right {
+    text-align: right;
+  }
+  .baja-cant {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--acento);
+  }
+  .baja-unidad {
+    font-size: 11px;
+    color: var(--texto-mid);
+  }
+  .baja-local {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--cafe-mid);
+    margin-top: 4px;
+  }
+
+  /* ── ALERTA ── */
+  .alerta-section { margin-bottom: 20px; }
+  .alerta-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--rojo);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .alerta-item {
+    background: var(--rojo-soft);
+    border: 1px solid #FBBBB5;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--rojo);
+    font-weight: 600;
+  }
+  .alerta-item span { font-weight: 400; color: #8B2E28; display: block; margin-top: 2px; font-size: 12px; }
+
+  /* ── RANKING ── */
+  .ranking-bar-wrap { margin-bottom: 10px; }
+  .ranking-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--texto);
+    margin-bottom: 4px;
+  }
+  .ranking-bar-label span { color: var(--texto-mid); font-weight: 400; }
+  .ranking-bar-track {
+    background: var(--crema-dark);
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .ranking-bar-fill {
+    height: 100%;
+    background: var(--acento);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  /* ── EMPTY ── */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--texto-mid);
+  }
+  .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-state p { font-size: 14px; }
+
+  /* ── MODAL confirm ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 200;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: white;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px 32px;
+    width: 100%;
+    max-width: 640px;
+  }
+  .modal-title { font-size: 18px; font-weight: 700; color: var(--cafe); margin-bottom: 8px; }
+  .modal-body { font-size: 14px; color: var(--texto-mid); margin-bottom: 20px; line-height: 1.5; }
+  .modal-actions { display: flex; gap: 10px; }
+  .modal-actions .btn-primary { flex: 1; }
+  .modal-actions .btn-ghost { flex: 1; }
+
+  /* responsive */
+  @media (max-width: 400px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .field-row { grid-template-columns: 1fr; }
+    .nav-brand { font-size: 14px; }
+    .nav-tab { padding: 6px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <img src="logo_morochos.png" alt="Morochos" style="height:36px; width:36px; border-radius:50%; object-fit:cover; margin-right:8px; vertical-align:middle;">
+    <span style="vertical-align:middle; color:var(--crema); font-weight:700; font-size:15px;">Bajas</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('registrar')">Registrar</button>
+    <button class="nav-tab" onclick="pedirPIN()">Panel</button>
+  </div>
+</nav>
+
+<!-- ══════════════════ PÁGINA: REGISTRAR ══════════════════ -->
+<div class="page active" id="page-registrar">
+  <div style="padding-top:10px">
+    <div class="section-head">
+      <h2>Registrar baja</h2>
+      <p>Llena el formulario cada vez que haya una pérdida de producto.</p>
+    </div>
+
+    <div class="card">
+      <!-- Local -->
+      <div class="field">
+        <label>Local <span class="req">*</span></label>
+        <select id="f-local" onchange="actualizarResponsables()">
+          <option value="">— Seleccionar —</option>
+          <option>Orange</option>
+          <option>West Orange</option>
+          <option>Bodega central</option>
+        </select>
+      </div>
+
+      <!-- Responsable -->
+      <div class="field">
+        <label>Quién reporta <span class="req">*</span></label>
+        <select id="f-responsable">
+          <option value="">— Seleccionar local primero —</option>
+        </select>
+      </div>
+
+      <!-- Producto -->
+      <div class="field">
+        <label>Producto / ingrediente <span class="req">*</span></label>
+        <select id="f-producto">
+          <option value="">— Seleccionar producto —</option>
+        </select>
+      </div>
+
+      <!-- Cantidad + Unidad -->
+      <div class="field field-row">
+        <div>
+          <label>Cantidad perdida <span class="req">*</span></label>
+          <input type="number" id="f-cantidad" placeholder="0" min="0" step="0.01" />
+        </div>
+        <div>
+          <label>Unidad</label>
+          <select id="f-unidad">
+            <option>unidades</option>
+            <option>litros</option>
+            <option>ml</option>
+            <option>kg</option>
+            <option>gramos</option>
+            <option>porciones</option>
+            <option>platos</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Motivo -->
+      <div class="field">
+        <label>Motivo <span class="req">*</span></label>
+        <div class="chips" id="chips-motivo">
+          <button class="chip" data-motivo="Receta mal preparada" onclick="selectChip(this)">Receta mal hecha</button>
+          <button class="chip" data-motivo="Error pedido cliente" onclick="selectChip(this)">Error pedido cliente</button>
+          <button class="chip" data-motivo="Error pedido empleado" onclick="selectChip(this)">Error pedido empleado</button>
+          <button class="chip" data-motivo="Vencido / caducado" onclick="selectChip(this)">Vencido</button>
+          <button class="chip" data-motivo="Derrame / accidente" onclick="selectChip(this)">Derrame</button>
+          <button class="chip" data-motivo="Mala calidad al recibir" onclick="selectChip(this)">Mala calidad</button>
+          <button class="chip" data-motivo="Robo / faltante" onclick="selectChip(this)">Robo / faltante</button>
+          <button class="chip" data-motivo="Otro" onclick="selectChip(this)">Otro</button>
+        </div>
+      </div>
+
+      <!-- Observación -->
+      <div class="field">
+        <label>Observación (opcional)</label>
+        <textarea id="f-obs" placeholder="Detalles adicionales, quién fue responsable, qué pasó exactamente…"></textarea>
+      </div>
+
+      <button class="btn-primary" onclick="confirmarBaja()">Registrar baja</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PÁGINA: PANEL ══════════════════ -->
+<div class="page" id="page-panel">
+  <div style="padding-top:10px">
+    <div class="section-head" style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <div>
+        <h2>Panel de bajas</h2>
+        <p id="panel-subtitle">Analizando todos los registros</p>
+      </div>
+      <button class="btn-ghost" onclick="exportarCSV()" style="margin-top:4px; white-space:nowrap;">⬇ Exportar</button>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters" id="filtros-local">
+      <button class="filter-chip active" data-local="todos" onclick="setFiltro(this)">Todos</button>
+      <button class="filter-chip" data-local="Orange" onclick="setFiltro(this)">Orange</button>
+      <button class="filter-chip" data-local="West Orange" onclick="setFiltro(this)">West Orange</button>
+      <button class="filter-chip" data-local="Bodega central" onclick="setFiltro(this)">Bodega</button>
+    </div>
+
+    <!-- KPIs -->
+    <div class="stats-grid" id="stats-grid"></div>
+
+    <!-- Alertas -->
+    <div class="alerta-section" id="alertas-section" style="display:none">
+      <div class="alerta-title">⚠️ Requiere atención</div>
+      <div id="alertas-list"></div>
+    </div>
+
+    <!-- Ranking productos -->
+    <div class="card">
+      <div style="font-size:14px; font-weight:700; color:var(--cafe); margin-bottom:14px;">Productos con más bajas</div>
+      <div id="ranking-productos"></div>
+    </div>
+
+    <!-- Listado -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <div style="font-size:14px; font-weight:700; color:var(--cafe);">Historial de registros</div>
+        <div id="count-label" style="font-size:12px; color:var(--texto-mid);"></div>
+      </div>
+      <div class="baja-list" id="baja-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ MODAL ══════════════════ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-title">Confirmar baja</div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn-primary" onclick="guardarBaja()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── ESTADO ──
+let bajas = JSON.parse(localStorage.getItem('morochos-bajas') || '[]');
+let motivoSeleccionado = '';
+let filtroLocal = 'todos';
+let pendiente = null;
+
+const STAFF = {
+  'Orange': ['Gabriela Avecilla', 'Yenifer Mayen', 'Delia González', 'Karina Rosero', 'Leticia Lindo'],
+  'West Orange': ['Gabriela Avecilla', 'Yenifer Mayen', 'Delia González', 'Karina Rosero', 'Leticia Lindo'],
+  'Bodega central': ['Gabriela Avecilla', 'Yenifer Mayen', 'Delia González', 'Karina Rosero', 'Leticia Lindo']
+};
+
+const PRODUCTOS = [
+  'Empanada de plátano','Bolón simple','Bolón con chicharrón',
+  'Café filtrado','Empanada de pollo','Empanada de carne',
+  'Pan chola','Cacho con queso','Jamón y queso pan',
+  'Arepa','Pan de bono','Empanada de viento',
+  'Empanada colombiana carne','Empanada colombiana pollo',
+  'Maduro con queso','Lunch para llevar',
+  'Morocho pequeño','Morocho grande',
+  'Jugo','Batido','Smoothie','Extracto',
+  'Gelatina','Tortilla de yuca','Avena en leche','Avena piña',
+  'Manzana verde','Manzana roja','Pan de leche','Lechuga'
+];
+
+const PIN_ENCARGADO = '1234';
+let panelDesbloqueado = false;
+
+function actualizarResponsables() {
+  const local = document.getElementById('f-local').value;
+  const sel = document.getElementById('f-responsable');
+  const staff = STAFF[local] || [];
+  if (staff.length) {
+    sel.innerHTML = '<option value="">— Seleccionar —</option>' +
+      staff.map(n => `<option>${n}</option>`).join('');
+  } else {
+    sel.innerHTML = '<option value="">— Tu nombre —</option>';
+    // Si no hay lista predefinida, convertir a input libre
+    const wrap = sel.parentNode;
+    sel.style.display = 'none';
+    let inp = wrap.querySelector('input.libre');
+    if (!inp) {
+      inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'libre';
+      inp.placeholder = 'Escribe tu nombre';
+      inp.id = 'f-responsable-libre';
+      wrap.appendChild(inp);
+    }
+    inp.style.display = '';
+    return;
+  }
+  // Ocultar input libre si existe
+  const inp = sel.parentNode.querySelector('input.libre');
+  if (inp) inp.style.display = 'none';
+  sel.style.display = '';
+}
+
+function getResponsable() {
+  const sel = document.getElementById('f-responsable');
+  if (sel && sel.style.display !== 'none') return sel.value;
+  const inp = document.getElementById('f-responsable-libre');
+  return inp ? inp.value.trim() : '';
+}
+
+// ── HELPERS ──
+function guardarStorage() {
+  localStorage.setItem('morochos-bajas', JSON.stringify(bajas));
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  event.target.classList.add('active');
+  if (id === 'panel') renderPanel();
+}
+
+function selectChip(el) {
+  document.querySelectorAll('#chips-motivo .chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  motivoSeleccionado = el.dataset.motivo;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function cerrarModal() {
+  document.getElementById('modal').classList.remove('open');
+  pendiente = null;
+}
+
+// ── REGISTRAR ──
+function confirmarBaja() {
+  const local = document.getElementById('f-local').value;
+  const resp = getResponsable();
+  const prod = document.getElementById('f-producto').value.trim();
+  const cant = parseFloat(document.getElementById('f-cantidad').value);
+  const unid = document.getElementById('f-unidad').value;
+  const obs = document.getElementById('f-obs').value.trim();
+
+  if (!local || !resp || !prod || !cant || !motivoSeleccionado) {
+    showToast('⚠️ Completa todos los campos obligatorios');
+    return;
+  }
+
+  pendiente = { local, resp, prod, cant, unid, motivo: motivoSeleccionado, obs,
+    fecha: new Date().toISOString(), id: Date.now() };
+
+  document.getElementById('modal-body').innerHTML =
+    `<b>${prod}</b> — ${cant} ${unid}<br>Motivo: ${motivoSeleccionado}<br>Local: ${local}<br>Reporta: ${resp}`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function guardarBaja() {
+  if (!pendiente) return;
+  bajas.unshift(pendiente);
+  guardarStorage();
+  cerrarModal();
+  resetForm();
+  showToast('✅ Baja registrada correctamente');
+}
+
+function resetForm() {
+  document.getElementById('f-producto').value = '';
+  document.getElementById('f-cantidad').value = '';
+  document.getElementById('f-obs').value = '';
+  document.getElementById('f-local').value = '';
+  document.getElementById('f-unidad').value = 'unidades';
+  const sel = document.getElementById('f-responsable');
+  sel.innerHTML = '<option value="">— Seleccionar local primero —</option>';
+  sel.style.display = '';
+  const inp = document.querySelector('input.libre');
+  if (inp) inp.style.display = 'none';
+  document.querySelectorAll('#chips-motivo .chip').forEach(c => c.classList.remove('selected'));
+  motivoSeleccionado = '';
+}
+
+// ── PANEL ──
+function setFiltro(el) {
+  document.querySelectorAll('#filtros-local .filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  filtroLocal = el.dataset.local;
+  renderPanel();
+}
+
+function getFiltradas() {
+  if (filtroLocal === 'todos') return bajas;
+  return bajas.filter(b => b.local === filtroLocal);
+}
+
+function tagClass(motivo) {
+  if (motivo.includes('Receta')) return 'tag-receta';
+  if (motivo.includes('Vencido')) return 'tag-vencido';
+  if (motivo.includes('Derrame')) return 'tag-derrame';
+  if (motivo.includes('Robo')) return 'tag-robo';
+  if (motivo.includes('calidad')) return 'tag-calidad';
+  return 'tag-otro';
+}
+
+function renderPanel() {
+  const data = getFiltradas();
+  const hoy = new Date().toDateString();
+  const hoy_bajas = data.filter(b => new Date(b.fecha).toDateString() === hoy);
+
+  // Subtitle
+  document.getElementById('panel-subtitle').textContent =
+    filtroLocal === 'todos' ? `${data.length} registros en total` : `${data.length} registros — ${filtroLocal}`;
+
+  // KPIs
+  const byMotivo = {};
+  data.forEach(b => { byMotivo[b.motivo] = (byMotivo[b.motivo] || 0) + 1; });
+  const topMotivo = Object.entries(byMotivo).sort((a,b) => b[1]-a[1])[0];
+
+  document.getElementById('stats-grid').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Total bajas</div>
+      <div class="stat-value">${data.length}</div>
+      <div class="stat-sub">todos los registros</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Hoy</div>
+      <div class="stat-value">${hoy_bajas.length}</div>
+      <div class="stat-sub">${new Date().toLocaleDateString('es-EC', {weekday:'short', day:'numeric', month:'short'})}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Causa frecuente</div>
+      <div class="stat-value" style="font-size:16px; line-height:1.3">${topMotivo ? topMotivo[0] : '—'}</div>
+      <div class="stat-sub">${topMotivo ? topMotivo[1] + ' veces' : ''}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Productos únicos</div>
+      <div class="stat-value">${new Set(data.map(b => b.prod)).size}</div>
+      <div class="stat-sub">con al menos 1 baja</div>
+    </div>
+  `;
+
+  // Alertas — producto con ≥3 bajas por receta mal hecha
+  const alertas = [];
+  const recetaMal = data.filter(b => b.motivo === 'Receta mal preparada');
+  const porProd = {};
+  recetaMal.forEach(b => { porProd[b.prod] = (porProd[b.prod] || 0) + 1; });
+  Object.entries(porProd).filter(([,v]) => v >= 2).forEach(([k,v]) => {
+    alertas.push({ titulo: `"${k}" — ${v} bajas por receta`, desc: 'Revisar capacitación o procedimiento de esta receta.' });
+  });
+
+  const alertSec = document.getElementById('alertas-section');
+  const alertList = document.getElementById('alertas-list');
+  if (alertas.length) {
+    alertSec.style.display = 'block';
+    alertList.innerHTML = alertas.map(a =>
+      `<div class="alerta-item">${a.titulo}<span>${a.desc}</span></div>`
+    ).join('');
+  } else {
+    alertSec.style.display = 'none';
+  }
+
+  // Ranking productos
+  const pRank = {};
+  data.forEach(b => { pRank[b.prod] = (pRank[b.prod] || 0) + b.cant; });
+  const sorted = Object.entries(pRank).sort((a,b) => b[1]-a[1]).slice(0,6);
+  const max = sorted[0]?.[1] || 1;
+  const rankEl = document.getElementById('ranking-productos');
+  if (!sorted.length) {
+    rankEl.innerHTML = '<div style="color:var(--texto-mid); font-size:13px;">Sin datos aún.</div>';
+  } else {
+    rankEl.innerHTML = sorted.map(([prod, total]) => {
+      const unidad = data.find(b => b.prod === prod)?.unid || '';
+      return `<div class="ranking-bar-wrap">
+        <div class="ranking-bar-label">${prod} <span>${total} ${unidad}</span></div>
+        <div class="ranking-bar-track"><div class="ranking-bar-fill" style="width:${(total/max*100).toFixed(0)}%"></div></div>
+      </div>`;
+    }).join('');
+  }
+
+  // Lista
+  document.getElementById('count-label').textContent = `${data.length} registros`;
+  const listEl = document.getElementById('baja-list');
+  if (!data.length) {
+    listEl.innerHTML = `<div class="empty-state"><div class="icon">📋</div><p>Aún no hay bajas registradas.</p></div>`;
+    return;
+  }
+  listEl.innerHTML = data.map(b => {
+    const fecha = new Date(b.fecha).toLocaleDateString('es-EC', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+    return `<div class="baja-item">
+      <div class="baja-item-left">
+        <div class="baja-producto">${b.prod}</div>
+        <div class="baja-meta">${fecha} · ${b.resp}</div>
+        <span class="baja-motivo-tag ${tagClass(b.motivo)}">${b.motivo}</span>
+        ${b.obs ? `<div style="font-size:12px; color:var(--texto-mid); margin-top:5px;">${b.obs}</div>` : ''}
+      </div>
+      <div class="baja-item-right">
+        <div class="baja-cant">${b.cant}</div>
+        <div class="baja-unidad">${b.unid}</div>
+        <div class="baja-local">${b.local}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── EXPORT CSV ──
+function exportarCSV() {
+  const data = getFiltradas();
+  if (!data.length) { showToast('No hay datos para exportar'); return; }
+  const header = ['Fecha','Local','Producto','Cantidad','Unidad','Motivo','Responsable','Observación'];
+  const rows = data.map(b => [
+    new Date(b.fecha).toLocaleString('es-EC'),
+    b.local, b.prod, b.cant, b.unid, b.motivo, b.resp, b.obs
+  ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
+  const csv = [header.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `bajas-morochos-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+
+// ── PIN PANEL ──
+function pedirPIN() {
+  if (panelDesbloqueado) {
+    doShowPanel();
+    return;
+  }
+  document.getElementById('pin-input').value = '';
+  document.getElementById('pin-error').style.display = 'none';
+  document.getElementById('modal-pin').classList.add('open');
+  setTimeout(() => document.getElementById('pin-input').focus(), 100);
+}
+
+function verificarPIN() {
+  const val = document.getElementById('pin-input').value;
+  if (val === PIN_ENCARGADO) {
+    panelDesbloqueado = true;
+    cerrarPIN();
+    doShowPanel();
+  } else if (val.length >= 4) {
+    document.getElementById('pin-error').style.display = 'block';
+    document.getElementById('pin-input').value = '';
+  }
+}
+
+function cerrarPIN() {
+  document.getElementById('modal-pin').classList.remove('open');
+}
+
+function doShowPanel() {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-panel').classList.add('active');
+  document.querySelectorAll('.nav-tab')[1].classList.add('active');
+  renderPanel();
+}
+
+
+// Poblar select de productos
+(function() {
+  const sel = document.getElementById('f-producto');
+  PRODUCTOS.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p; opt.textContent = p;
+    sel.appendChild(opt);
+  });
+})();
+
+// Render inicial
+renderPanel();
+</script>
+
+<!-- ══════════════════ MODAL PIN ══════════════════ -->
+<div class="modal-overlay" id="modal-pin">
+  <div class="modal-box">
+    <div class="modal-title">🔒 Acceso encargado</div>
+    <div class="modal-body">Ingresa el PIN para ver el panel de análisis.</div>
+    <input type="password" id="pin-input" placeholder="PIN" maxlength="6"
+      style="margin-bottom:16px; text-align:center; font-size:22px; letter-spacing:8px;"
+      oninput="if(this.value.length>=4) verificarPIN()" />
+    <div id="pin-error" style="color:var(--rojo); font-size:13px; margin-bottom:12px; display:none;">PIN incorrecto</div>
+    <button class="btn-ghost" onclick="cerrarPIN()" style="width:100%;">Cancelar</button>
+  </div>
+</div>
+</body>
+</html>

@@ -3,398 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Bajas — Morochos</title>
+<title>Morochos — Control</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
   :root {
-    --cafe: #3B1F0E;
-    --cafe-mid: #6B3A1F;
-    --crema: #F7F0E6;
-    --crema-dark: #EDE0CC;
-    --acento: #C8531A;
-    --acento-soft: #F2E0D6;
-    --verde: #1E7A4A;
-    --verde-soft: #D4EDE0;
-    --amarillo: #B87C12;
-    --amarillo-soft: #FDF3D7;
-    --rojo: #C0392B;
-    --rojo-soft: #FDECEA;
-    --texto: #1A0F08;
-    --texto-mid: #5A3E2B;
-    --borde: #D9C9B5;
-    --sombra: 0 2px 12px rgba(59,31,14,0.10);
+    --cafe:#3B1F0E; --cafe-mid:#6B3A1F; --crema:#F7F0E6; --crema-dark:#EDE0CC;
+    --acento:#C8531A; --verde:#1E7A4A; --verde-soft:#D4EDE0;
+    --amarillo:#B87C12; --amarillo-soft:#FDF3D7;
+    --rojo:#C0392B; --rojo-soft:#FDECEA;
+    --texto:#1A0F08; --texto-mid:#5A3E2B; --borde:#D9C9B5;
+    --sombra:0 2px 12px rgba(59,31,14,0.10);
   }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--crema);color:var(--texto);min-height:100vh;}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* NAV */
+  nav{background:var(--cafe);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+  .nav-brand img{height:34px;width:34px;border-radius:50%;object-fit:cover;vertical-align:middle;}
+  .nav-brand span{vertical-align:middle;color:var(--crema);font-weight:700;font-size:14px;margin-left:8px;}
+  .nav-tabs{display:flex;gap:5px;}
+  .nav-tab{background:transparent;border:1.5px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.65);
+    padding:6px 11px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;font-family:inherit;}
+  .nav-tab.active{background:var(--acento);border-color:var(--acento);color:white;}
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--crema);
-    color: var(--texto);
-    min-height: 100vh;
-  }
+  /* PAGES */
+  .page{display:none;padding:16px;max-width:640px;margin:0 auto;}
+  .page.active{display:block;}
 
-  /* ── NAV ── */
-  nav {
-    background: var(--cafe);
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav-brand {
-    color: var(--crema);
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 0.5px;
-  }
-  .nav-brand span { color: #D4956A; }
-  .nav-tabs {
-    display: flex;
-    gap: 6px;
-  }
-  .nav-tab {
-    background: transparent;
-    border: 1.5px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.65);
-    padding: 7px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-  }
-  .nav-tab.active {
-    background: var(--acento);
-    border-color: var(--acento);
-    color: white;
-  }
+  /* SECTION HEAD */
+  .section-head{margin-bottom:18px;}
+  .section-head h2{font-size:21px;font-weight:700;color:var(--cafe);}
+  .section-head p{font-size:13px;color:var(--texto-mid);margin-top:3px;}
 
-  /* ── PAGES ── */
-  .page { display: none; padding: 20px; max-width: 640px; margin: 0 auto; }
-  .page.active { display: block; }
+  /* CARD */
+  .card{background:white;border-radius:16px;padding:18px;box-shadow:var(--sombra);margin-bottom:14px;border:1px solid var(--borde);}
 
-  /* ── SECTION HEADER ── */
-  .section-head {
-    margin-bottom: 20px;
-  }
-  .section-head h2 {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--cafe);
-    line-height: 1.2;
-  }
-  .section-head p {
-    font-size: 14px;
-    color: var(--texto-mid);
-    margin-top: 4px;
-  }
+  /* FORM */
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--cafe);margin-bottom:5px;}
+  .field label .req{color:var(--acento);margin-left:2px;}
+  input,select,textarea{width:100%;padding:11px 13px;border:1.5px solid var(--borde);border-radius:10px;
+    font-size:15px;font-family:inherit;color:var(--texto);background:white;transition:border-color .2s;-webkit-appearance:none;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acento);}
+  select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%235A3E2B' stroke-width='2' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;}
+  textarea{resize:vertical;min-height:76px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 
-  /* ── CARD ── */
-  .card {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: var(--sombra);
-    margin-bottom: 16px;
-    border: 1px solid var(--borde);
-  }
+  /* CHIPS */
+  .chips{display:flex;flex-wrap:wrap;gap:7px;}
+  .chip{padding:6px 11px;border-radius:20px;border:1.5px solid var(--borde);font-size:12px;font-family:inherit;
+    cursor:pointer;background:white;color:var(--texto-mid);transition:all .15s;font-weight:500;}
+  .chip.selected{background:var(--acento);border-color:var(--acento);color:white;}
 
-  /* ── FORM ── */
-  .field { margin-bottom: 16px; }
-  .field label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--cafe);
-    margin-bottom: 6px;
-    letter-spacing: 0.2px;
-  }
-  .field label .req { color: var(--acento); margin-left: 2px; }
+  /* BTN */
+  .btn-primary{width:100%;padding:14px;background:var(--acento);color:white;border:none;border-radius:12px;
+    font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;transition:background .2s;}
+  .btn-primary:hover{background:#A8431A;}
+  .btn-primary:disabled{background:var(--borde);color:#aaa;cursor:not-allowed;}
+  .btn-ghost{background:transparent;border:1.5px solid var(--borde);color:var(--cafe-mid);padding:8px 14px;
+    border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;}
+  .btn-verde{background:var(--verde);color:white;border:none;padding:8px 14px;border-radius:10px;
+    font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;}
 
-  input, select, textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid var(--borde);
-    border-radius: 10px;
-    font-size: 15px;
-    font-family: inherit;
-    color: var(--texto);
-    background: white;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-  input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: var(--acento);
-  }
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='%235A3E2B' stroke-width='2' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 36px;
-  }
-  textarea { resize: vertical; min-height: 80px; }
+  /* TOAST */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--cafe);
+    color:white;padding:12px 20px;border-radius:30px;font-size:14px;font-weight:600;z-index:999;
+    transition:transform .3s ease;white-space:nowrap;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
 
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  /* STATS */
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  .stat-card{background:white;border:1px solid var(--borde);border-radius:14px;padding:14px;box-shadow:var(--sombra);}
+  .stat-label{font-size:11px;font-weight:600;color:var(--texto-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+  .stat-value{font-size:24px;font-weight:700;color:var(--cafe);line-height:1;}
+  .stat-sub{font-size:11px;color:var(--texto-mid);margin-top:3px;}
 
-  /* motivo chips */
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    padding: 7px 12px;
-    border-radius: 20px;
-    border: 1.5px solid var(--borde);
-    font-size: 13px;
-    font-family: inherit;
-    cursor: pointer;
-    background: white;
-    color: var(--texto-mid);
-    transition: all 0.15s;
-    font-weight: 500;
-  }
-  .chip.selected {
-    background: var(--acento);
-    border-color: var(--acento);
-    color: white;
-  }
+  /* FILTERS */
+  .filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+  .filter-chip{padding:5px 11px;border-radius:20px;border:1.5px solid var(--borde);font-size:12px;
+    font-family:inherit;cursor:pointer;background:white;color:var(--texto-mid);font-weight:500;}
+  .filter-chip.active{background:var(--cafe);border-color:var(--cafe);color:white;}
 
-  /* ── BTN ── */
-  .btn-primary {
-    width: 100%;
-    padding: 15px;
-    background: var(--acento);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    transition: background 0.2s;
-    letter-spacing: 0.3px;
-  }
-  .btn-primary:hover { background: #A8431A; }
-  .btn-primary:disabled { background: var(--borde); color: #aaa; cursor: not-allowed; }
+  /* DATE FILTER */
+  .date-filter{display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+  .date-filter label{font-size:12px;font-weight:600;color:var(--cafe-mid);white-space:nowrap;}
+  .date-filter input[type=date]{width:auto;padding:7px 10px;font-size:13px;}
+  .date-filter select{width:auto;padding:7px 10px;font-size:13px;}
 
-  .btn-ghost {
-    background: transparent;
-    border: 1.5px solid var(--borde);
-    color: var(--cafe-mid);
-    padding: 9px 16px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-  }
+  /* LIST */
+  .baja-list{display:flex;flex-direction:column;gap:9px;}
+  .baja-item{background:white;border:1px solid var(--borde);border-radius:12px;padding:13px 14px;
+    display:grid;grid-template-columns:1fr auto;gap:4px;box-shadow:0 1px 4px rgba(59,31,14,0.06);}
+  .baja-producto{font-size:14px;font-weight:700;color:var(--cafe);}
+  .baja-meta{font-size:12px;color:var(--texto-mid);margin-top:2px;}
+  .baja-motivo-tag{display:inline-block;margin-top:5px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;}
+  .tag-receta{background:var(--rojo-soft);color:var(--rojo);}
+  .tag-vencido{background:var(--amarillo-soft);color:var(--amarillo);}
+  .tag-derrame{background:#E8F0FE;color:#1967D2;}
+  .tag-robo{background:#F3E5F5;color:#7B1FA2;}
+  .tag-calidad{background:var(--verde-soft);color:var(--verde);}
+  .tag-otro{background:var(--crema-dark);color:var(--cafe-mid);}
+  .tag-manana{background:#FFF8E1;color:#E65100;}
+  .tag-tarde{background:#E3F2FD;color:#1565C0;}
+  .tag-noche{background:#EDE7F6;color:#4527A0;}
+  .baja-item-right{text-align:right;}
+  .baja-cant{font-size:17px;font-weight:700;color:var(--acento);}
+  .baja-unidad{font-size:11px;color:var(--texto-mid);}
+  .baja-local{font-size:11px;font-weight:600;color:var(--cafe-mid);margin-top:3px;}
 
-  /* ── TOAST ── */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--cafe);
-    color: white;
-    padding: 13px 22px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
-    z-index: 999;
-    transition: transform 0.3s ease;
-    white-space: nowrap;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
+  /* ALERTA */
+  .alerta-section{margin-bottom:16px;}
+  .alerta-title{font-size:13px;font-weight:700;color:var(--rojo);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+  .alerta-item{background:var(--rojo-soft);border:1px solid #FBBBB5;border-radius:10px;padding:11px 13px;
+    margin-bottom:7px;font-size:13px;color:var(--rojo);font-weight:600;}
+  .alerta-item span{font-weight:400;color:#8B2E28;display:block;margin-top:2px;font-size:12px;}
 
-  /* ── PANEL STATS ── */
-  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-  .stat-card {
-    background: white;
-    border: 1px solid var(--borde);
-    border-radius: 14px;
-    padding: 16px;
-    box-shadow: var(--sombra);
-  }
-  .stat-label { font-size: 12px; font-weight: 600; color: var(--texto-mid); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .stat-value { font-size: 26px; font-weight: 700; color: var(--cafe); line-height: 1; }
-  .stat-sub { font-size: 12px; color: var(--texto-mid); margin-top: 4px; }
+  /* RANKING */
+  .ranking-bar-wrap{margin-bottom:9px;}
+  .ranking-bar-label{display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--texto);margin-bottom:3px;}
+  .ranking-bar-label span{color:var(--texto-mid);font-weight:400;}
+  .ranking-bar-track{background:var(--crema-dark);border-radius:4px;height:7px;overflow:hidden;}
+  .ranking-bar-fill{height:100%;border-radius:4px;transition:width .5s ease;}
 
-  /* ── FILTERS ── */
-  .filters {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-  }
-  .filter-chip {
-    padding: 6px 12px;
-    border-radius: 20px;
-    border: 1.5px solid var(--borde);
-    font-size: 12px;
-    font-family: inherit;
-    cursor: pointer;
-    background: white;
-    color: var(--texto-mid);
-    font-weight: 500;
-  }
-  .filter-chip.active {
-    background: var(--cafe);
-    border-color: var(--cafe);
-    color: white;
-  }
+  /* PANEL TABS */
+  .panel-tabs{display:flex;gap:0;margin-bottom:18px;border:1.5px solid var(--borde);border-radius:12px;overflow:hidden;}
+  .panel-tab{flex:1;padding:11px;background:white;border:none;font-family:inherit;font-size:13px;
+    font-weight:600;color:var(--texto-mid);cursor:pointer;transition:all .2s;}
+  .panel-tab.active{background:var(--cafe);color:white;}
 
-  /* ── TABLE / LIST ── */
-  .baja-list { display: flex; flex-direction: column; gap: 10px; }
+  /* EMPTY */
+  .empty-state{text-align:center;padding:36px 20px;color:var(--texto-mid);}
+  .empty-state .icon{font-size:36px;margin-bottom:10px;}
+  .empty-state p{font-size:14px;}
 
-  .baja-item {
-    background: white;
-    border: 1px solid var(--borde);
-    border-radius: 12px;
-    padding: 14px 16px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 4px;
-    box-shadow: 0 1px 4px rgba(59,31,14,0.06);
-  }
-  .baja-item-left {}
-  .baja-producto {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--cafe);
-  }
-  .baja-meta {
-    font-size: 12px;
-    color: var(--texto-mid);
-    margin-top: 3px;
-  }
-  .baja-motivo-tag {
-    display: inline-block;
-    margin-top: 6px;
-    padding: 3px 9px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-  }
-  .tag-receta { background: var(--rojo-soft); color: var(--rojo); }
-  .tag-vencido { background: var(--amarillo-soft); color: var(--amarillo); }
-  .tag-derrame { background: #E8F0FE; color: #1967D2; }
-  .tag-robo { background: #F3E5F5; color: #7B1FA2; }
-  .tag-otro { background: var(--crema-dark); color: var(--cafe-mid); }
-  .tag-calidad { background: var(--verde-soft); color: var(--verde); }
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:200;align-items:flex-end;justify-content:center;}
+  .modal-overlay.open{display:flex;}
+  .modal-box{background:white;border-radius:20px 20px 0 0;padding:22px 18px 30px;width:100%;max-width:640px;}
+  .modal-title{font-size:17px;font-weight:700;color:var(--cafe);margin-bottom:8px;}
+  .modal-body{font-size:14px;color:var(--texto-mid);margin-bottom:18px;line-height:1.5;}
+  .modal-actions{display:flex;gap:10px;}
+  .modal-actions .btn-primary{flex:1;}
+  .modal-actions .btn-ghost{flex:1;}
 
-  .baja-item-right {
-    text-align: right;
-  }
-  .baja-cant {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--acento);
-  }
-  .baja-unidad {
-    font-size: 11px;
-    color: var(--texto-mid);
-  }
-  .baja-local {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--cafe-mid);
-    margin-top: 4px;
-  }
-
-  /* ── ALERTA ── */
-  .alerta-section { margin-bottom: 20px; }
-  .alerta-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--rojo);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .alerta-item {
-    background: var(--rojo-soft);
-    border: 1px solid #FBBBB5;
-    border-radius: 10px;
-    padding: 12px 14px;
-    margin-bottom: 8px;
-    font-size: 13px;
-    color: var(--rojo);
-    font-weight: 600;
-  }
-  .alerta-item span { font-weight: 400; color: #8B2E28; display: block; margin-top: 2px; font-size: 12px; }
-
-  /* ── RANKING ── */
-  .ranking-bar-wrap { margin-bottom: 10px; }
-  .ranking-bar-label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--texto);
-    margin-bottom: 4px;
-  }
-  .ranking-bar-label span { color: var(--texto-mid); font-weight: 400; }
-  .ranking-bar-track {
-    background: var(--crema-dark);
-    border-radius: 4px;
-    height: 8px;
-    overflow: hidden;
-  }
-  .ranking-bar-fill {
-    height: 100%;
-    background: var(--acento);
-    border-radius: 4px;
-    transition: width 0.5s ease;
-  }
-
-  /* ── EMPTY ── */
-  .empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--texto-mid);
-  }
-  .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
-  .empty-state p { font-size: 14px; }
-
-  /* ── MODAL confirm ── */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-    z-index: 200;
-    align-items: flex-end;
-    justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal-box {
-    background: white;
-    border-radius: 20px 20px 0 0;
-    padding: 24px 20px 32px;
-    width: 100%;
-    max-width: 640px;
-  }
-  .modal-title { font-size: 18px; font-weight: 700; color: var(--cafe); margin-bottom: 8px; }
-  .modal-body { font-size: 14px; color: var(--texto-mid); margin-bottom: 20px; line-height: 1.5; }
-  .modal-actions { display: flex; gap: 10px; }
-  .modal-actions .btn-primary { flex: 1; }
-  .modal-actions .btn-ghost { flex: 1; }
-
-  /* responsive */
-  @media (max-width: 400px) {
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-    .field-row { grid-template-columns: 1fr; }
-    .nav-brand { font-size: 14px; }
-    .nav-tab { padding: 6px 10px; font-size: 12px; }
+  @media(max-width:400px){
+    .field-row{grid-template-columns:1fr;}
+    .nav-tab{padding:5px 8px;font-size:11px;}
+    .date-filter{gap:6px;}
   }
 </style>
 </head>
@@ -402,25 +158,24 @@
 
 <nav>
   <div class="nav-brand">
-    <img src="logo_morochos.png" alt="Morochos" style="height:36px; width:36px; border-radius:50%; object-fit:cover; margin-right:8px; vertical-align:middle;">
-    <span style="vertical-align:middle; color:var(--crema); font-weight:700; font-size:15px;">Bajas</span>
+    <img src="logo_morochos.png" alt="Morochos">
+    <span>Morochos</span>
   </div>
   <div class="nav-tabs">
-    <button class="nav-tab active" onclick="showPage('registrar')">Registrar</button>
-    <button class="nav-tab" onclick="pedirPIN()">Panel</button>
+    <button class="nav-tab active" id="tab-bajas" onclick="showPage('registrar')">Bajas</button>
+    <button class="nav-tab" id="tab-produccion" onclick="showPage('produccion')">Producción</button>
+    <button class="nav-tab" id="tab-panel" onclick="pedirPIN()">Panel 🔒</button>
   </div>
 </nav>
 
-<!-- ══════════════════ PÁGINA: REGISTRAR ══════════════════ -->
+<!-- ═══════ PÁGINA: REGISTRAR BAJA ═══════ -->
 <div class="page active" id="page-registrar">
-  <div style="padding-top:10px">
+  <div style="padding-top:8px">
     <div class="section-head">
       <h2>Registrar baja</h2>
-      <p>Llena el formulario cada vez que haya una pérdida de producto.</p>
+      <p>Llena el formulario por cada pérdida de producto.</p>
     </div>
-
     <div class="card">
-      <!-- Local -->
       <div class="field">
         <label>Local <span class="req">*</span></label>
         <select id="f-local" onchange="actualizarResponsables()">
@@ -430,44 +185,31 @@
           <option>Bodega central</option>
         </select>
       </div>
-
-      <!-- Responsable -->
       <div class="field">
         <label>Quién reporta <span class="req">*</span></label>
         <select id="f-responsable">
           <option value="">— Seleccionar local primero —</option>
         </select>
       </div>
-
-      <!-- Producto -->
       <div class="field">
         <label>Producto / ingrediente <span class="req">*</span></label>
         <select id="f-producto">
           <option value="">— Seleccionar producto —</option>
         </select>
       </div>
-
-      <!-- Cantidad + Unidad -->
       <div class="field field-row">
         <div>
-          <label>Cantidad perdida <span class="req">*</span></label>
-          <input type="number" id="f-cantidad" placeholder="0" min="0" step="0.01" />
+          <label>Cantidad <span class="req">*</span></label>
+          <input type="number" id="f-cantidad" placeholder="0" min="0" step="0.01"/>
         </div>
         <div>
           <label>Unidad</label>
           <select id="f-unidad">
-            <option>unidades</option>
-            <option>litros</option>
-            <option>ml</option>
-            <option>kg</option>
-            <option>gramos</option>
-            <option>porciones</option>
-            <option>platos</option>
+            <option>unidades</option><option>litros</option><option>ml</option>
+            <option>kg</option><option>gramos</option><option>porciones</option><option>platos</option>
           </select>
         </div>
       </div>
-
-      <!-- Motivo -->
       <div class="field">
         <label>Motivo <span class="req">*</span></label>
         <div class="chips" id="chips-motivo">
@@ -481,64 +223,189 @@
           <button class="chip" data-motivo="Otro" onclick="selectChip(this)">Otro</button>
         </div>
       </div>
-
-      <!-- Observación -->
       <div class="field">
         <label>Observación (opcional)</label>
-        <textarea id="f-obs" placeholder="Detalles adicionales, quién fue responsable, qué pasó exactamente…"></textarea>
+        <textarea id="f-obs" placeholder="Detalles adicionales…"></textarea>
       </div>
-
       <button class="btn-primary" onclick="confirmarBaja()">Registrar baja</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════ PÁGINA: PANEL ══════════════════ -->
-<div class="page" id="page-panel">
-  <div style="padding-top:10px">
-    <div class="section-head" style="display:flex; justify-content:space-between; align-items:flex-start;">
-      <div>
-        <h2>Panel de bajas</h2>
-        <p id="panel-subtitle">Analizando todos los registros</p>
-      </div>
-      <button class="btn-ghost" onclick="exportarCSV()" style="margin-top:4px; white-space:nowrap;">⬇ Exportar</button>
+<!-- ═══════ PÁGINA: REGISTRAR PRODUCCIÓN ═══════ -->
+<div class="page" id="page-produccion">
+  <div style="padding-top:8px">
+    <div class="section-head">
+      <h2>Registrar producción</h2>
+      <p>¿Cuánto se elaboró en este turno?</p>
     </div>
-
-    <!-- Filtros -->
-    <div class="filters" id="filtros-local">
-      <button class="filter-chip active" data-local="todos" onclick="setFiltro(this)">Todos</button>
-      <button class="filter-chip" data-local="Orange" onclick="setFiltro(this)">Orange</button>
-      <button class="filter-chip" data-local="West Orange" onclick="setFiltro(this)">West Orange</button>
-      <button class="filter-chip" data-local="Bodega central" onclick="setFiltro(this)">Bodega</button>
-    </div>
-
-    <!-- KPIs -->
-    <div class="stats-grid" id="stats-grid"></div>
-
-    <!-- Alertas -->
-    <div class="alerta-section" id="alertas-section" style="display:none">
-      <div class="alerta-title">⚠️ Requiere atención</div>
-      <div id="alertas-list"></div>
-    </div>
-
-    <!-- Ranking productos -->
     <div class="card">
-      <div style="font-size:14px; font-weight:700; color:var(--cafe); margin-bottom:14px;">Productos con más bajas</div>
-      <div id="ranking-productos"></div>
-    </div>
-
-    <!-- Listado -->
-    <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <div style="font-size:14px; font-weight:700; color:var(--cafe);">Historial de registros</div>
-        <div id="count-label" style="font-size:12px; color:var(--texto-mid);"></div>
+      <div class="field">
+        <label>Local <span class="req">*</span></label>
+        <select id="p-local" onchange="actualizarResponsablesProd()">
+          <option value="">— Seleccionar —</option>
+          <option>Orange</option>
+          <option>West Orange</option>
+          <option>Bodega central</option>
+        </select>
       </div>
-      <div class="baja-list" id="baja-list"></div>
+      <div class="field">
+        <label>Encargado de cocina</label>
+        <input type="text" id="p-responsable" value="Manuel González" readonly
+          style="background:var(--crema-dark);color:var(--cafe-mid);font-weight:600;cursor:default;"/>
+      </div>
+      <div class="field">
+        <label>Turno <span class="req">*</span></label>
+        <div class="chips" id="chips-turno">
+          <button class="chip" data-turno="Mañana" onclick="selectTurno(this)">☀️ Mañana</button>
+          <button class="chip" data-turno="Tarde" onclick="selectTurno(this)">🌤 Tarde</button>
+          <button class="chip" data-turno="Noche" onclick="selectTurno(this)">🌙 Noche</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Producto elaborado <span class="req">*</span></label>
+        <select id="p-producto">
+          <option value="">— Seleccionar producto —</option>
+          <option>Morocho</option>
+          <option>Avena con piña</option>
+          <option>Chocolate</option>
+          <option>Avena con leche</option>
+          <option>Empanada de pollo</option>
+          <option>Empanada de carne</option>
+          <option>Empanada de viento</option>
+          <option>Bolón</option>
+          <option>Empanada de plátano</option>
+          <option>Tortilla de yuca</option>
+          <option>Pan de tiesto</option>
+          <option>Maduro con queso</option>
+        </select>
+      </div>
+      <div class="field field-row">
+        <div>
+          <label>Cantidad producida <span class="req">*</span></label>
+          <input type="number" id="p-cantidad" placeholder="0" min="1" step="1"/>
+        </div>
+        <div>
+          <label>Unidad</label>
+          <select id="p-unidad">
+            <option>unidades</option><option>porciones</option>
+            <option>bandejas</option><option>litros</option><option>kg</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Observación (opcional)</label>
+        <textarea id="p-obs" placeholder="Novedades del turno…"></textarea>
+      </div>
+      <button class="btn-primary" onclick="confirmarProduccion()">Registrar producción</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════ MODAL ══════════════════ -->
+<!-- ═══════ PÁGINA: PANEL ═══════ -->
+<div class="page" id="page-panel">
+  <div style="padding-top:8px">
+    <h2 style="font-size:21px;font-weight:700;color:var(--cafe);margin-bottom:16px;">Panel</h2>
+
+    <!-- Sub-tabs: Bajas / Producción -->
+    <div class="panel-tabs">
+      <button class="panel-tab active" id="ptab-bajas" onclick="switchPanelTab('bajas')">📉 Bajas</button>
+      <button class="panel-tab" id="ptab-prod" onclick="switchPanelTab('prod')">🍳 Producción</button>
+    </div>
+
+    <!-- ── SUB-PANEL BAJAS ── -->
+    <div id="subpanel-bajas">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <p id="panel-subtitle" style="font-size:13px;color:var(--texto-mid);"></p>
+        <button class="btn-ghost" onclick="exportarCSV()">⬇ CSV</button>
+      </div>
+      <!-- Filtro local -->
+      <div class="filters" id="filtros-local">
+        <button class="filter-chip active" data-local="todos" onclick="setFiltro(this)">Todos</button>
+        <button class="filter-chip" data-local="Orange" onclick="setFiltro(this)">Orange</button>
+        <button class="filter-chip" data-local="West Orange" onclick="setFiltro(this)">West Orange</button>
+        <button class="filter-chip" data-local="Bodega central" onclick="setFiltro(this)">Bodega</button>
+      </div>
+      <!-- Filtro fecha -->
+      <div class="date-filter">
+        <label>Ver por:</label>
+        <select id="f-periodo" onchange="renderPanel()">
+          <option value="todo">Todo</option>
+          <option value="hoy">Hoy</option>
+          <option value="semana">Esta semana</option>
+          <option value="mes">Este mes</option>
+          <option value="rango">Rango de fechas</option>
+        </select>
+        <div id="f-rango" style="display:none;display:flex;gap:6px;align-items:center;">
+          <input type="date" id="f-desde" onchange="renderPanel()" style="width:140px;">
+          <span style="font-size:12px;color:var(--texto-mid);">—</span>
+          <input type="date" id="f-hasta" onchange="renderPanel()" style="width:140px;">
+        </div>
+      </div>
+      <div class="stats-grid" id="stats-grid"></div>
+      <div class="alerta-section" id="alertas-section" style="display:none">
+        <div class="alerta-title">⚠️ Requiere atención</div>
+        <div id="alertas-list"></div>
+      </div>
+      <div class="card">
+        <div style="font-size:14px;font-weight:700;color:var(--cafe);margin-bottom:12px;">Productos con más bajas</div>
+        <div id="ranking-productos"></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="font-size:14px;font-weight:700;color:var(--cafe);">Historial</div>
+          <div id="count-label" style="font-size:12px;color:var(--texto-mid);"></div>
+        </div>
+        <div class="baja-list" id="baja-list"></div>
+      </div>
+    </div>
+
+    <!-- ── SUB-PANEL PRODUCCIÓN ── -->
+    <div id="subpanel-prod" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <p id="prod-panel-subtitle" style="font-size:13px;color:var(--texto-mid);"></p>
+        <button class="btn-verde" onclick="exportarCSVProd()">⬇ CSV</button>
+      </div>
+      <!-- Filtro local -->
+      <div class="filters" id="filtros-prod-local">
+        <button class="filter-chip active" data-local="todos" onclick="setFiltroProd(this)">Todos</button>
+        <button class="filter-chip" data-local="Orange" onclick="setFiltroProd(this)">Orange</button>
+        <button class="filter-chip" data-local="West Orange" onclick="setFiltroProd(this)">West Orange</button>
+        <button class="filter-chip" data-local="Bodega central" onclick="setFiltroProd(this)">Bodega</button>
+      </div>
+      <!-- Filtro fecha producción -->
+      <div class="date-filter">
+        <label>Ver por:</label>
+        <select id="p-periodo" onchange="renderPanelProd()">
+          <option value="todo">Todo</option>
+          <option value="hoy">Hoy</option>
+          <option value="semana">Esta semana</option>
+          <option value="mes">Este mes</option>
+          <option value="rango">Rango de fechas</option>
+        </select>
+        <div id="p-rango" style="display:none;">
+          <input type="date" id="p-desde" onchange="renderPanelProd()" style="width:140px;">
+          <span style="font-size:12px;color:var(--texto-mid);margin:0 4px;">—</span>
+          <input type="date" id="p-hasta" onchange="renderPanelProd()" style="width:140px;">
+        </div>
+      </div>
+      <div class="stats-grid" id="prod-stats-grid"></div>
+      <div class="card">
+        <div style="font-size:14px;font-weight:700;color:var(--cafe);margin-bottom:12px;">Productos más elaborados</div>
+        <div id="prod-ranking"></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="font-size:14px;font-weight:700;color:var(--cafe);">Historial</div>
+          <div id="prod-count-label" style="font-size:12px;color:var(--texto-mid);"></div>
+        </div>
+        <div class="baja-list" id="prod-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALES -->
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
     <div class="modal-title">Confirmar baja</div>
@@ -550,407 +417,425 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="modal-prod">
+  <div class="modal-box">
+    <div class="modal-title">Confirmar producción</div>
+    <div class="modal-body" id="modal-prod-body"></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="cerrarModalProd()">Cancelar</button>
+      <button class="btn-primary" onclick="guardarProduccion()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-pin">
+  <div class="modal-box">
+    <div class="modal-title">🔒 Acceso encargado</div>
+    <div class="modal-body">Ingresa el PIN para ver el panel.</div>
+    <input type="password" id="pin-input" placeholder="PIN" maxlength="6"
+      style="margin-bottom:14px;text-align:center;font-size:22px;letter-spacing:8px;"
+      oninput="if(this.value.length>=4) verificarPIN()"/>
+    <div id="pin-error" style="color:var(--rojo);font-size:13px;margin-bottom:10px;display:none;">PIN incorrecto</div>
+    <button class="btn-ghost" onclick="cerrarPIN()" style="width:100%;">Cancelar</button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
-<!-- Firebase SDK -->
+<!-- PROXY (resuelve type=module + onclick) -->
+<script>
+function showPage(id){window._showPage&&window._showPage(id);}
+function pedirPIN(){window._pedirPIN&&window._pedirPIN();}
+function verificarPIN(){window._verificarPIN&&window._verificarPIN();}
+function cerrarPIN(){window._cerrarPIN&&window._cerrarPIN();}
+function actualizarResponsables(){window._actualizarResponsables&&window._actualizarResponsables();}
+function selectChip(el){window._selectChip&&window._selectChip(el);}
+function confirmarBaja(){window._confirmarBaja&&window._confirmarBaja();}
+function guardarBaja(){window._guardarBaja&&window._guardarBaja();}
+function cerrarModal(){window._cerrarModal&&window._cerrarModal();}
+function setFiltro(el){window._setFiltro&&window._setFiltro(el);}
+function exportarCSV(){window._exportarCSV&&window._exportarCSV();}
+function switchPanelTab(t){window._switchPanelTab&&window._switchPanelTab(t);}
+function actualizarResponsablesProd(){window._actualizarResponsablesProd&&window._actualizarResponsablesProd();}
+function selectTurno(el){window._selectTurno&&window._selectTurno(el);}
+function confirmarProduccion(){window._confirmarProduccion&&window._confirmarProduccion();}
+function guardarProduccion(){window._guardarProduccion&&window._guardarProduccion();}
+function cerrarModalProd(){window._cerrarModalProd&&window._cerrarModalProd();}
+function setFiltroProd(el){window._setFiltroProd&&window._setFiltroProd(el);}
+function exportarCSVProd(){window._exportarCSVProd&&window._exportarCSVProd();}
+function renderPanel(){window._renderPanel&&window._renderPanel();}
+function renderPanelProd(){window._renderPanelProd&&window._renderPanelProd();}
+</script>
+
+<!-- FIREBASE MODULE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDvL3-jot3HM1dVGZln85Dlnbf9QKeX5TE",
-  authDomain: "morochos-orange-bajas.firebaseapp.com",
-  projectId: "morochos-orange-bajas",
-  storageBucket: "morochos-orange-bajas.firebasestorage.app",
-  messagingSenderId: "246290449853",
-  appId: "1:246290449853:web:bd48951de1187689c83ed4"
+  apiKey:"AIzaSyDvL3-jot3HM1dVGZln85Dlnbf9QKeX5TE",
+  authDomain:"morochos-orange-bajas.firebaseapp.com",
+  projectId:"morochos-orange-bajas",
+  storageBucket:"morochos-orange-bajas.firebasestorage.app",
+  messagingSenderId:"246290449853",
+  appId:"1:246290449853:web:bd48951de1187689c83ed4"
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const db  = getFirestore(app);
 
-// ── ESTADO ──
-let bajas = [];
-let motivoSeleccionado = '';
-let filtroLocal = 'todos';
-let pendiente = null;
-
+// ── CONSTANTES ──
+const PIN = '1234';
 const STAFF = {
-  'Orange': ['Gabriela Avecilla', 'Yenifer Mayen', 'Delia González', 'Karina Rosero', 'Leticia Lindo'],
-  'West Orange': ['Gabriela Avecilla', 'Yenifer Mayen', 'Delia González', 'Karina Rosero', 'Leticia Lindo'],
-  'Bodega central': ['Gabriela Avecilla', 'Yenifer Mayen', 'Delia González', 'Karina Rosero', 'Leticia Lindo']
+  'Orange':         ['Gabriela Avecilla','Yenifer Mayen','Delia González','Karina González','Leticia Lindo'],
+  'West Orange':    ['Gabriela Avecilla','Yenifer Mayen','Delia González','Karina González','Leticia Lindo'],
+  'Bodega central': ['Gabriela Avecilla','Yenifer Mayen','Delia González','Karina González','Leticia Lindo']
 };
-
 const PRODUCTOS = [
-  'Empanada de plátano','Bolón simple','Bolón con chicharrón',
-  'Café filtrado','Empanada de pollo','Empanada de carne',
-  'Pan chola','Cacho con queso','Jamón y queso pan',
-  'Arepa','Pan de bono','Empanada de viento',
-  'Empanada colombiana carne','Empanada colombiana pollo',
-  'Maduro con queso','Lunch para llevar',
-  'Morocho pequeño','Morocho grande',
-  'Jugo','Batido','Smoothie','Extracto',
-  'Gelatina','Tortilla de yuca','Avena en leche','Avena piña',
-  'Manzana verde','Manzana roja','Pan de leche','Lechuga'
+  'Empanada de plátano','Bolón simple','Bolón con chicharrón','Café filtrado',
+  'Empanada de pollo','Empanada de carne','Pan chola','Cacho con queso',
+  'Jamón y queso pan','Arepa','Pan de bono','Empanada de viento',
+  'Empanada colombiana carne','Empanada colombiana pollo','Maduro con queso',
+  'Lunch para llevar','Morocho pequeño','Morocho grande','Jugo','Batido',
+  'Smoothie','Extracto','Gelatina','Tortilla de yuca','Avena en leche',
+  'Avena piña','Manzana verde','Manzana roja','Pan de leche','Lechuga',
+  'Sandwich de pollo','Cheese cake frutos rojos','Tiramisú','Gelatina con crema',
+  'Gelatina 3 leches','Tres leches','Jengibre','Pepino','Piña','Apio',
+  'Limón','Naranja','Manzana','Espinaca'
 ];
 
-const PIN_ENCARGADO = '1234';
-let panelDesbloqueado = false;
+// ── ESTADO ──
+let bajas = [], producciones = [];
+let motivoSel = '', turnoSel = '';
+let pendienteBaja = null, pendienteProd = null;
+let filtroLocal = 'todos', filtroLocalProd = 'todos';
+let panelOK = false;
 
-// ── ESCUCHAR FIRESTORE EN TIEMPO REAL ──
-const q = query(collection(db, 'bajas'), orderBy('fecha', 'desc'));
-onSnapshot(q, (snapshot) => {
-  bajas = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  const panelVisible = document.getElementById('page-panel').classList.contains('active');
-  if (panelVisible) renderPanel();
+// Poblar select productos bajas
+const selProd = document.getElementById('f-producto');
+PRODUCTOS.forEach(p => { const o=document.createElement('option'); o.value=o.textContent=p; selProd.appendChild(o); });
+
+// ── FIRESTORE LISTENERS ──
+onSnapshot(query(collection(db,'bajas'),orderBy('fecha','desc')), snap => {
+  bajas = snap.docs.map(d=>({id:d.id,...d.data()}));
+  if(document.getElementById('subpanel-bajas').style.display!=='none' &&
+     document.getElementById('page-panel').classList.contains('active')) renderPanel();
+});
+onSnapshot(query(collection(db,'producciones'),orderBy('fecha','desc')), snap => {
+  producciones = snap.docs.map(d=>({id:d.id,...d.data()}));
+  if(document.getElementById('subpanel-prod').style.display!=='none' &&
+     document.getElementById('page-panel').classList.contains('active')) renderPanelProd();
 });
 
-function actualizarResponsables() {
-  const local = document.getElementById('f-local').value;
-  const sel = document.getElementById('f-responsable');
-  const staff = STAFF[local] || [];
-  if (staff.length) {
-    sel.innerHTML = '<option value="">— Seleccionar —</option>' +
-      staff.map(n => `<option>${n}</option>`).join('');
-  } else {
-    sel.innerHTML = '<option value="">— Tu nombre —</option>';
-    // Si no hay lista predefinida, convertir a input libre
-    const wrap = sel.parentNode;
-    sel.style.display = 'none';
-    let inp = wrap.querySelector('input.libre');
-    if (!inp) {
-      inp = document.createElement('input');
-      inp.type = 'text';
-      inp.className = 'libre';
-      inp.placeholder = 'Escribe tu nombre';
-      inp.id = 'f-responsable-libre';
-      wrap.appendChild(inp);
-    }
-    inp.style.display = '';
-    return;
-  }
-  // Ocultar input libre si existe
-  const inp = sel.parentNode.querySelector('input.libre');
-  if (inp) inp.style.display = 'none';
-  sel.style.display = '';
-}
-
-function getResponsable() {
-  const sel = document.getElementById('f-responsable');
-  if (sel && sel.style.display !== 'none') return sel.value;
-  const inp = document.getElementById('f-responsable-libre');
-  return inp ? inp.value.trim() : '';
-}
-
 // ── HELPERS ──
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  event.target.classList.add('active');
-  if (id === 'panel') renderPanel();
-}
+function getDoc(b){ return b.fecha?.toDate ? b.fecha.toDate() : new Date(b.fecha||0); }
 
-function selectChip(el) {
-  document.querySelectorAll('#chips-motivo .chip').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  motivoSeleccionado = el.dataset.motivo;
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
-}
-
-function cerrarModal() {
-  document.getElementById('modal').classList.remove('open');
-  pendiente = null;
-}
-
-// ── REGISTRAR ──
-function confirmarBaja() {
-  const local = document.getElementById('f-local').value;
-  const resp = getResponsable();
-  const prod = document.getElementById('f-producto').value.trim();
-  const cant = parseFloat(document.getElementById('f-cantidad').value);
-  const unid = document.getElementById('f-unidad').value;
-  const obs = document.getElementById('f-obs').value.trim();
-
-  if (!local || !resp || !prod || !cant || !motivoSeleccionado) {
-    showToast('⚠️ Completa todos los campos obligatorios');
-    return;
+function filtrarPorFecha(data, periodoId, desdeId, hastaId) {
+  const periodo = document.getElementById(periodoId).value;
+  const ahora = new Date();
+  if(periodo==='hoy'){
+    const hoy = ahora.toDateString();
+    return data.filter(b=>getDoc(b).toDateString()===hoy);
   }
+  if(periodo==='semana'){
+    const lunes = new Date(ahora); lunes.setDate(ahora.getDate()-ahora.getDay()+1); lunes.setHours(0,0,0,0);
+    return data.filter(b=>getDoc(b)>=lunes);
+  }
+  if(periodo==='mes'){
+    return data.filter(b=>{ const d=getDoc(b); return d.getMonth()===ahora.getMonth()&&d.getFullYear()===ahora.getFullYear(); });
+  }
+  if(periodo==='rango'){
+    document.getElementById(desdeId.replace('f-','f-rango').replace('p-','p-rango')) || null;
+    const desde = document.getElementById(desdeId).value ? new Date(document.getElementById(desdeId).value+'T00:00:00') : null;
+    const hasta = document.getElementById(hastaId).value ? new Date(document.getElementById(hastaId).value+'T23:59:59') : null;
+    return data.filter(b=>{ const d=getDoc(b); return(!desde||d>=desde)&&(!hasta||d<=hasta); });
+  }
+  return data;
+}
 
-  pendiente = { local, resp, prod, cant, unid, motivo: motivoSeleccionado, obs,
-    fecha: new Date().toISOString(), id: Date.now() };
+function showToast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
 
-  document.getElementById('modal-body').innerHTML =
-    `<b>${prod}</b> — ${cant} ${unid}<br>Motivo: ${motivoSeleccionado}<br>Local: ${local}<br>Reporta: ${resp}`;
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const map={'registrar':'tab-bajas','produccion':'tab-produccion','panel':'tab-panel'};
+  document.getElementById(map[id])?.classList.add('active');
+}
+
+// ── PANEL TABS ──
+function switchPanelTab(tab){
+  document.getElementById('subpanel-bajas').style.display = tab==='bajas'?'block':'none';
+  document.getElementById('subpanel-prod').style.display  = tab==='prod' ?'block':'none';
+  document.getElementById('ptab-bajas').classList.toggle('active', tab==='bajas');
+  document.getElementById('ptab-prod').classList.toggle('active',  tab==='prod');
+  if(tab==='bajas') renderPanel(); else renderPanelProd();
+}
+
+// ── PIN ──
+function pedirPIN(){
+  if(panelOK){ abrirPanel(); return; }
+  document.getElementById('pin-input').value='';
+  document.getElementById('pin-error').style.display='none';
+  document.getElementById('modal-pin').classList.add('open');
+  setTimeout(()=>document.getElementById('pin-input').focus(),100);
+}
+function verificarPIN(){
+  const v=document.getElementById('pin-input').value;
+  if(v===PIN){ panelOK=true; cerrarPIN(); abrirPanel(); }
+  else if(v.length>=4){ document.getElementById('pin-error').style.display='block'; document.getElementById('pin-input').value=''; }
+}
+function cerrarPIN(){ document.getElementById('modal-pin').classList.remove('open'); }
+function abrirPanel(){
+  showPage('panel');
+  document.getElementById('tab-panel').classList.add('active');
+  renderPanel();
+}
+
+// ── BAJAS: FORM ──
+function actualizarResponsables(){
+  const local=document.getElementById('f-local').value;
+  const sel=document.getElementById('f-responsable');
+  sel.innerHTML='<option value="">— Seleccionar —</option>'+
+    (STAFF[local]||[]).map(n=>`<option>${n}</option>`).join('');
+}
+function selectChip(el){
+  document.querySelectorAll('#chips-motivo .chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); motivoSel=el.dataset.motivo;
+}
+function confirmarBaja(){
+  const local=document.getElementById('f-local').value;
+  const resp=document.getElementById('f-responsable').value;
+  const prod=document.getElementById('f-producto').value;
+  const cant=parseFloat(document.getElementById('f-cantidad').value);
+  const unid=document.getElementById('f-unidad').value;
+  const obs=document.getElementById('f-obs').value.trim();
+  if(!local||!resp||!prod||!cant||!motivoSel){ showToast('⚠️ Completa todos los campos'); return; }
+  pendienteBaja={local,resp,prod,cant,unid,motivo:motivoSel,obs};
+  document.getElementById('modal-body').innerHTML=`<b>${prod}</b> — ${cant} ${unid}<br>Motivo: ${motivoSel}<br>Local: ${local}<br>Reporta: ${resp}`;
   document.getElementById('modal').classList.add('open');
 }
-
-async function guardarBaja() {
-  if (!pendiente) return;
-  const btn = document.querySelector('#modal .btn-primary');
-  btn.disabled = true;
-  btn.textContent = 'Guardando…';
-  try {
-    await addDoc(collection(db, 'bajas'), {
-      local: pendiente.local,
-      resp: pendiente.resp,
-      prod: pendiente.prod,
-      cant: pendiente.cant,
-      unid: pendiente.unid,
-      motivo: pendiente.motivo,
-      obs: pendiente.obs,
-      fecha: serverTimestamp()
-    });
-    cerrarModal();
-    resetForm();
-    showToast('✅ Baja registrada correctamente');
-  } catch(e) {
-    showToast('❌ Error al guardar. Revisa conexión.');
-    console.error(e);
-  }
-  btn.disabled = false;
-  btn.textContent = 'Confirmar';
+async function guardarBaja(){
+  if(!pendienteBaja) return;
+  const btn=document.querySelector('#modal .btn-primary');
+  btn.disabled=true; btn.textContent='Guardando…';
+  try{
+    await addDoc(collection(db,'bajas'),{...pendienteBaja, fecha:serverTimestamp()});
+    cerrarModal(); resetFormBaja(); showToast('✅ Baja registrada');
+  }catch(e){ showToast('❌ Error. Revisa conexión.'); console.error(e); }
+  btn.disabled=false; btn.textContent='Confirmar';
+}
+function cerrarModal(){ document.getElementById('modal').classList.remove('open'); pendienteBaja=null; }
+function resetFormBaja(){
+  ['f-local','f-producto','f-cantidad','f-obs'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-unidad').value='unidades';
+  document.getElementById('f-responsable').innerHTML='<option value="">— Seleccionar local primero —</option>';
+  document.querySelectorAll('#chips-motivo .chip').forEach(c=>c.classList.remove('selected'));
+  motivoSel='';
 }
 
-function resetForm() {
-  document.getElementById('f-producto').value = '';
-  document.getElementById('f-cantidad').value = '';
-  document.getElementById('f-obs').value = '';
-  document.getElementById('f-local').value = '';
-  document.getElementById('f-unidad').value = 'unidades';
-  const sel = document.getElementById('f-responsable');
-  sel.innerHTML = '<option value="">— Seleccionar local primero —</option>';
-  sel.style.display = '';
-  const inp = document.querySelector('input.libre');
-  if (inp) inp.style.display = 'none';
-  document.querySelectorAll('#chips-motivo .chip').forEach(c => c.classList.remove('selected'));
-  motivoSeleccionado = '';
+// ── BAJAS: PANEL ──
+function setFiltro(el){
+  document.querySelectorAll('#filtros-local .filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active'); filtroLocal=el.dataset.local; renderPanel();
 }
-
-// ── PANEL ──
-function setFiltro(el) {
-  document.querySelectorAll('#filtros-local .filter-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  filtroLocal = el.dataset.local;
-  renderPanel();
-}
-
-function getFiltradas() {
-  if (filtroLocal === 'todos') return bajas;
-  return bajas.filter(b => b.local === filtroLocal);
-}
-
-function tagClass(motivo) {
-  if (motivo.includes('Receta')) return 'tag-receta';
-  if (motivo.includes('Vencido')) return 'tag-vencido';
-  if (motivo.includes('Derrame')) return 'tag-derrame';
-  if (motivo.includes('Robo')) return 'tag-robo';
-  if (motivo.includes('calidad')) return 'tag-calidad';
+function tagClass(m){
+  if(m.includes('Receta')) return 'tag-receta';
+  if(m.includes('Vencido')) return 'tag-vencido';
+  if(m.includes('Derrame')) return 'tag-derrame';
+  if(m.includes('Robo')) return 'tag-robo';
+  if(m.includes('calidad')) return 'tag-calidad';
   return 'tag-otro';
 }
+function renderPanel(){
+  // mostrar/ocultar rango
+  const periodo=document.getElementById('f-periodo').value;
+  document.getElementById('f-rango').style.display=periodo==='rango'?'flex':'none';
 
-function renderPanel() {
-  const data = getFiltradas();
-  const hoy = new Date().toDateString();
-  const hoy_bajas = data.filter(b => {
-    const d = b.fecha?.toDate ? b.fecha.toDate() : new Date(b.fecha);
-    return d.toDateString() === hoy;
-  });
+  let data = filtroLocal==='todos' ? bajas : bajas.filter(b=>b.local===filtroLocal);
+  data = filtrarPorFecha(data,'f-periodo','f-desde','f-hasta');
 
-  // Subtitle
-  document.getElementById('panel-subtitle').textContent =
-    filtroLocal === 'todos' ? `${data.length} registros en total` : `${data.length} registros — ${filtroLocal}`;
+  const hoy=new Date().toDateString();
+  const hoyN=data.filter(b=>getDoc(b).toDateString()===hoy).length;
+  const byM={}; data.forEach(b=>{byM[b.motivo]=(byM[b.motivo]||0)+1;});
+  const topM=Object.entries(byM).sort((a,b)=>b[1]-a[1])[0];
 
-  // KPIs
-  const byMotivo = {};
-  data.forEach(b => { byMotivo[b.motivo] = (byMotivo[b.motivo] || 0) + 1; });
-  const topMotivo = Object.entries(byMotivo).sort((a,b) => b[1]-a[1])[0];
+  document.getElementById('panel-subtitle').textContent=
+    (filtroLocal==='todos'?'Todos los locales':filtroLocal)+' · '+data.length+' registros';
 
-  document.getElementById('stats-grid').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-label">Total bajas</div>
-      <div class="stat-value">${data.length}</div>
-      <div class="stat-sub">todos los registros</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Hoy</div>
-      <div class="stat-value">${hoy_bajas.length}</div>
-      <div class="stat-sub">${new Date().toLocaleDateString('es-EC', {weekday:'short', day:'numeric', month:'short'})}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Causa frecuente</div>
-      <div class="stat-value" style="font-size:16px; line-height:1.3">${topMotivo ? topMotivo[0] : '—'}</div>
-      <div class="stat-sub">${topMotivo ? topMotivo[1] + ' veces' : ''}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Productos únicos</div>
-      <div class="stat-value">${new Set(data.map(b => b.prod)).size}</div>
-      <div class="stat-sub">con al menos 1 baja</div>
-    </div>
-  `;
+  document.getElementById('stats-grid').innerHTML=`
+    <div class="stat-card"><div class="stat-label">Total bajas</div><div class="stat-value">${data.length}</div><div class="stat-sub">en el período</div></div>
+    <div class="stat-card"><div class="stat-label">Hoy</div><div class="stat-value">${hoyN}</div><div class="stat-sub">${new Date().toLocaleDateString('es-EC',{weekday:'short',day:'numeric',month:'short'})}</div></div>
+    <div class="stat-card"><div class="stat-label">Causa frecuente</div><div class="stat-value" style="font-size:15px;line-height:1.3">${topM?topM[0]:'—'}</div><div class="stat-sub">${topM?topM[1]+' veces':''}</div></div>
+    <div class="stat-card"><div class="stat-label">Productos únicos</div><div class="stat-value">${new Set(data.map(b=>b.prod)).size}</div><div class="stat-sub">con al menos 1 baja</div></div>`;
 
-  // Alertas — producto con ≥3 bajas por receta mal hecha
-  const alertas = [];
-  const recetaMal = data.filter(b => b.motivo === 'Receta mal preparada');
-  const porProd = {};
-  recetaMal.forEach(b => { porProd[b.prod] = (porProd[b.prod] || 0) + 1; });
-  Object.entries(porProd).filter(([,v]) => v >= 2).forEach(([k,v]) => {
-    alertas.push({ titulo: `"${k}" — ${v} bajas por receta`, desc: 'Revisar capacitación o procedimiento de esta receta.' });
-  });
+  // Alertas
+  const porProd={};
+  data.filter(b=>b.motivo==='Receta mal preparada').forEach(b=>{porProd[b.prod]=(porProd[b.prod]||0)+1;});
+  const alertas=Object.entries(porProd).filter(([,v])=>v>=2);
+  const alertSec=document.getElementById('alertas-section');
+  alertSec.style.display=alertas.length?'block':'none';
+  document.getElementById('alertas-list').innerHTML=alertas.map(([k,v])=>
+    `<div class="alerta-item">"${k}" — ${v} bajas por receta<span>Revisar capacitación o procedimiento.</span></div>`).join('');
 
-  const alertSec = document.getElementById('alertas-section');
-  const alertList = document.getElementById('alertas-list');
-  if (alertas.length) {
-    alertSec.style.display = 'block';
-    alertList.innerHTML = alertas.map(a =>
-      `<div class="alerta-item">${a.titulo}<span>${a.desc}</span></div>`
-    ).join('');
-  } else {
-    alertSec.style.display = 'none';
-  }
-
-  // Ranking productos
-  const pRank = {};
-  data.forEach(b => { pRank[b.prod] = (pRank[b.prod] || 0) + b.cant; });
-  const sorted = Object.entries(pRank).sort((a,b) => b[1]-a[1]).slice(0,6);
-  const max = sorted[0]?.[1] || 1;
-  const rankEl = document.getElementById('ranking-productos');
-  if (!sorted.length) {
-    rankEl.innerHTML = '<div style="color:var(--texto-mid); font-size:13px;">Sin datos aún.</div>';
-  } else {
-    rankEl.innerHTML = sorted.map(([prod, total]) => {
-      const unidad = data.find(b => b.prod === prod)?.unid || '';
-      return `<div class="ranking-bar-wrap">
-        <div class="ranking-bar-label">${prod} <span>${total} ${unidad}</span></div>
-        <div class="ranking-bar-track"><div class="ranking-bar-fill" style="width:${(total/max*100).toFixed(0)}%"></div></div>
-      </div>`;
-    }).join('');
-  }
+  // Ranking
+  const pRank={};
+  data.forEach(b=>{pRank[b.prod]=(pRank[b.prod]||0)+b.cant;});
+  const sorted=Object.entries(pRank).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const mx=sorted[0]?.[1]||1;
+  document.getElementById('ranking-productos').innerHTML=sorted.length
+    ? sorted.map(([p,t])=>{
+        const u=data.find(b=>b.prod===p)?.unid||'';
+        return `<div class="ranking-bar-wrap"><div class="ranking-bar-label">${p}<span>${t} ${u}</span></div>
+          <div class="ranking-bar-track"><div class="ranking-bar-fill" style="width:${(t/mx*100).toFixed(0)}%;background:var(--acento)"></div></div></div>`;
+      }).join('')
+    : '<div style="color:var(--texto-mid);font-size:13px;">Sin datos.</div>';
 
   // Lista
-  document.getElementById('count-label').textContent = `${data.length} registros`;
-  const listEl = document.getElementById('baja-list');
-  if (!data.length) {
-    listEl.innerHTML = `<div class="empty-state"><div class="icon">📋</div><p>Aún no hay bajas registradas.</p></div>`;
-    return;
-  }
-  listEl.innerHTML = data.map(b => {
-    const fechaObj = b.fecha?.toDate ? b.fecha.toDate() : new Date(b.fecha);
-    const fecha = fechaObj.toLocaleDateString('es-EC', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
-    return `<div class="baja-item">
-      <div class="baja-item-left">
-        <div class="baja-producto">${b.prod}</div>
-        <div class="baja-meta">${fecha} · ${b.resp}</div>
-        <span class="baja-motivo-tag ${tagClass(b.motivo)}">${b.motivo}</span>
-        ${b.obs ? `<div style="font-size:12px; color:var(--texto-mid); margin-top:5px;">${b.obs}</div>` : ''}
-      </div>
-      <div class="baja-item-right">
-        <div class="baja-cant">${b.cant}</div>
-        <div class="baja-unidad">${b.unid}</div>
-        <div class="baja-local">${b.local}</div>
-      </div>
-    </div>`;
-  }).join('');
+  document.getElementById('count-label').textContent=data.length+' registros';
+  document.getElementById('baja-list').innerHTML=data.length
+    ? data.map(b=>{
+        const f=getDoc(b).toLocaleDateString('es-EC',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+        return `<div class="baja-item">
+          <div><div class="baja-producto">${b.prod}</div><div class="baja-meta">${f} · ${b.resp}</div>
+          <span class="baja-motivo-tag ${tagClass(b.motivo)}">${b.motivo}</span>
+          ${b.obs?`<div style="font-size:12px;color:var(--texto-mid);margin-top:4px;">${b.obs}</div>`:''}</div>
+          <div class="baja-item-right"><div class="baja-cant">${b.cant}</div><div class="baja-unidad">${b.unid}</div><div class="baja-local">${b.local}</div></div>
+        </div>`;}).join('')
+    : '<div class="empty-state"><div class="icon">📋</div><p>Sin registros en este período.</p></div>';
 }
 
-// ── EXPORT CSV ──
-function exportarCSV() {
-  const data = getFiltradas();
-  if (!data.length) { showToast('No hay datos para exportar'); return; }
-  const header = ['Fecha','Local','Producto','Cantidad','Unidad','Motivo','Responsable','Observación'];
-  const rows = data.map(b => [
-    new Date(b.fecha).toLocaleString('es-EC'),
-    b.local, b.prod, b.cant, b.unid, b.motivo, b.resp, b.obs
-  ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
-  const csv = [header.join(','), ...rows].join('\n');
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `bajas-morochos-${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
+function exportarCSV(){
+  let data = filtroLocal==='todos' ? bajas : bajas.filter(b=>b.local===filtroLocal);
+  data = filtrarPorFecha(data,'f-periodo','f-desde','f-hasta');
+  if(!data.length){ showToast('No hay datos para exportar'); return; }
+  const h=['Fecha','Local','Producto','Cantidad','Unidad','Motivo','Responsable','Observación'];
+  const rows=data.map(b=>[getDoc(b).toLocaleString('es-EC'),b.local,b.prod,b.cant,b.unid,b.motivo,b.resp,b.obs||'']
+    .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','));
+  const csv=[h.join(','),...rows].join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
+  a.download=`bajas-morochos-${new Date().toISOString().slice(0,10)}.csv`; a.click();
 }
 
-
-// ── PIN PANEL ──
-function pedirPIN() {
-  if (panelDesbloqueado) {
-    doShowPanel();
-    return;
-  }
-  document.getElementById('pin-input').value = '';
-  document.getElementById('pin-error').style.display = 'none';
-  document.getElementById('modal-pin').classList.add('open');
-  setTimeout(() => document.getElementById('pin-input').focus(), 100);
+// ── PRODUCCIÓN: FORM ──
+function actualizarResponsablesProd(){
+  // Responsable fijo: Manuel González
+}
+function selectTurno(el){
+  document.querySelectorAll('#chips-turno .chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); turnoSel=el.dataset.turno;
+}
+function confirmarProduccion(){
+  const local=document.getElementById('p-local').value;
+  const resp=document.getElementById('p-responsable').value;
+  const prod=document.getElementById('p-producto').value;
+  const cant=parseFloat(document.getElementById('p-cantidad').value);
+  const unid=document.getElementById('p-unidad').value;
+  const obs=document.getElementById('p-obs').value.trim();
+  if(!local||!resp||!prod||!cant||!turnoSel){ showToast('⚠️ Completa todos los campos'); return; }
+  pendienteProd={local,resp,prod,cant,unid,turno:turnoSel,obs};
+  document.getElementById('modal-prod-body').innerHTML=`<b>${prod}</b> — ${cant} ${unid}<br>Turno: ${turnoSel}<br>Local: ${local}<br>Encargado: ${resp}`;
+  document.getElementById('modal-prod').classList.add('open');
+}
+async function guardarProduccion(){
+  if(!pendienteProd) return;
+  const btn=document.querySelector('#modal-prod .btn-primary');
+  btn.disabled=true; btn.textContent='Guardando…';
+  try{
+    await addDoc(collection(db,'producciones'),{...pendienteProd, fecha:serverTimestamp()});
+    cerrarModalProd(); resetFormProd(); showToast('✅ Producción registrada');
+  }catch(e){ showToast('❌ Error. Revisa conexión.'); console.error(e); }
+  btn.disabled=false; btn.textContent='Confirmar';
+}
+function cerrarModalProd(){ document.getElementById('modal-prod').classList.remove('open'); pendienteProd=null; }
+function resetFormProd(){
+  ['p-local','p-producto','p-cantidad','p-obs'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('p-unidad').value='unidades';
+  // p-responsable es fijo (Manuel González), no se resetea
+  document.querySelectorAll('#chips-turno .chip').forEach(c=>c.classList.remove('selected'));
+  turnoSel='';
 }
 
-function verificarPIN() {
-  const val = document.getElementById('pin-input').value;
-  if (val === PIN_ENCARGADO) {
-    panelDesbloqueado = true;
-    cerrarPIN();
-    doShowPanel();
-  } else if (val.length >= 4) {
-    document.getElementById('pin-error').style.display = 'block';
-    document.getElementById('pin-input').value = '';
-  }
+// ── PRODUCCIÓN: PANEL ──
+function setFiltroProd(el){
+  document.querySelectorAll('#filtros-prod-local .filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active'); filtroLocalProd=el.dataset.local; renderPanelProd();
+}
+function turnoTag(t){ return t==='Mañana'?'tag-manana':t==='Tarde'?'tag-tarde':'tag-noche'; }
+
+function renderPanelProd(){
+  const periodo=document.getElementById('p-periodo').value;
+  document.getElementById('p-rango').style.display=periodo==='rango'?'flex':'none';
+
+  let data=filtroLocalProd==='todos'?producciones:producciones.filter(p=>p.local===filtroLocalProd);
+  data=filtrarPorFecha(data,'p-periodo','p-desde','p-hasta');
+
+  const hoy=new Date().toDateString();
+  const hoyN=data.filter(p=>getDoc(p).toDateString()===hoy).length;
+  const total=data.reduce((s,p)=>s+(p.cant||0),0);
+
+  document.getElementById('prod-panel-subtitle').textContent=
+    (filtroLocalProd==='todos'?'Todos los locales':filtroLocalProd)+' · '+data.length+' registros';
+
+  document.getElementById('prod-stats-grid').innerHTML=`
+    <div class="stat-card"><div class="stat-label">Total registros</div><div class="stat-value">${data.length}</div><div class="stat-sub">en el período</div></div>
+    <div class="stat-card"><div class="stat-label">Unidades producidas</div><div class="stat-value">${total}</div><div class="stat-sub">en el período</div></div>
+    <div class="stat-card"><div class="stat-label">Registros hoy</div><div class="stat-value">${hoyN}</div><div class="stat-sub">${new Date().toLocaleDateString('es-EC',{weekday:'short',day:'numeric',month:'short'})}</div></div>
+    <div class="stat-card"><div class="stat-label">Productos únicos</div><div class="stat-value">${new Set(data.map(p=>p.prod)).size}</div><div class="stat-sub">elaborados</div></div>`;
+
+  const pRank={};
+  data.forEach(p=>{pRank[p.prod]=(pRank[p.prod]||0)+p.cant;});
+  const sorted=Object.entries(pRank).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const mx=sorted[0]?.[1]||1;
+  document.getElementById('prod-ranking').innerHTML=sorted.length
+    ? sorted.map(([p,t])=>{
+        const u=data.find(d=>d.prod===p)?.unid||'';
+        return `<div class="ranking-bar-wrap"><div class="ranking-bar-label">${p}<span>${t} ${u}</span></div>
+          <div class="ranking-bar-track"><div class="ranking-bar-fill" style="width:${(t/mx*100).toFixed(0)}%;background:var(--verde)"></div></div></div>`;
+      }).join('')
+    : '<div style="color:var(--texto-mid);font-size:13px;">Sin datos.</div>';
+
+  document.getElementById('prod-count-label').textContent=data.length+' registros';
+  document.getElementById('prod-list').innerHTML=data.length
+    ? data.map(p=>{
+        const f=getDoc(p).toLocaleDateString('es-EC',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+        return `<div class="baja-item">
+          <div><div class="baja-producto">${p.prod}</div><div class="baja-meta">${f} · ${p.resp}</div>
+          <span class="baja-motivo-tag ${turnoTag(p.turno)}">${p.turno}</span>
+          ${p.obs?`<div style="font-size:12px;color:var(--texto-mid);margin-top:4px;">${p.obs}</div>`:''}</div>
+          <div class="baja-item-right"><div class="baja-cant" style="color:var(--verde)">${p.cant}</div><div class="baja-unidad">${p.unid}</div><div class="baja-local">${p.local}</div></div>
+        </div>`;}).join('')
+    : '<div class="empty-state"><div class="icon">🍳</div><p>Sin registros en este período.</p></div>';
 }
 
-function cerrarPIN() {
-  document.getElementById('modal-pin').classList.remove('open');
+function exportarCSVProd(){
+  let data=filtroLocalProd==='todos'?producciones:producciones.filter(p=>p.local===filtroLocalProd);
+  data=filtrarPorFecha(data,'p-periodo','p-desde','p-hasta');
+  if(!data.length){ showToast('No hay datos para exportar'); return; }
+  const h=['Fecha','Local','Producto','Cantidad','Unidad','Turno','Encargado','Observación'];
+  const rows=data.map(p=>[getDoc(p).toLocaleString('es-EC'),p.local,p.prod,p.cant,p.unid,p.turno,p.resp,p.obs||'']
+    .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','));
+  const csv=[h.join(','),...rows].join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));
+  a.download=`produccion-morochos-${new Date().toISOString().slice(0,10)}.csv`; a.click();
 }
 
-function doShowPanel() {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-panel').classList.add('active');
-  document.querySelectorAll('.nav-tab')[1].classList.add('active');
-  renderPanel();
-}
-
-
-// Poblar select de productos
-(function() {
-  const sel = document.getElementById('f-producto');
-  PRODUCTOS.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p; opt.textContent = p;
-    sel.appendChild(opt);
-  });
-})();
-
-// Exponer funciones globales para onclick en HTML
-window.actualizarResponsables = actualizarResponsables;
-window.selectChip = selectChip;
-window.confirmarBaja = confirmarBaja;
-window.guardarBaja = guardarBaja;
-window.cerrarModal = cerrarModal;
-window.setFiltro = setFiltro;
-window.exportarCSV = exportarCSV;
-window.pedirPIN = pedirPIN;
-window.verificarPIN = verificarPIN;
-window.cerrarPIN = cerrarPIN;
-window.showPage = showPage;
+// ── EXPONER AL PROXY ──
+window._showPage=showPage; window._pedirPIN=pedirPIN; window._verificarPIN=verificarPIN;
+window._cerrarPIN=cerrarPIN; window._actualizarResponsables=actualizarResponsables;
+window._selectChip=selectChip; window._confirmarBaja=confirmarBaja; window._guardarBaja=guardarBaja;
+window._cerrarModal=cerrarModal; window._setFiltro=setFiltro; window._exportarCSV=exportarCSV;
+window._switchPanelTab=switchPanelTab; window._actualizarResponsablesProd=actualizarResponsablesProd;
+window._selectTurno=selectTurno; window._confirmarProduccion=confirmarProduccion;
+window._guardarProduccion=guardarProduccion; window._cerrarModalProd=cerrarModalProd;
+window._setFiltroProd=setFiltroProd; window._exportarCSVProd=exportarCSVProd;
+window._renderPanel=renderPanel; window._renderPanelProd=renderPanelProd;
 </script>
-
-<!-- ══════════════════ MODAL PIN ══════════════════ -->
-<div class="modal-overlay" id="modal-pin">
-  <div class="modal-box">
-    <div class="modal-title">🔒 Acceso encargado</div>
-    <div class="modal-body">Ingresa el PIN para ver el panel de análisis.</div>
-    <input type="password" id="pin-input" placeholder="PIN" maxlength="6"
-      style="margin-bottom:16px; text-align:center; font-size:22px; letter-spacing:8px;"
-      oninput="if(this.value.length>=4) verificarPIN()" />
-    <div id="pin-error" style="color:var(--rojo); font-size:13px; margin-bottom:12px; display:none;">PIN incorrecto</div>
-    <button class="btn-ghost" onclick="cerrarPIN()" style="width:100%;">Cancelar</button>
-  </div>
-</div>
 </body>
 </html>

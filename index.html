@@ -250,9 +250,13 @@
         </select>
       </div>
       <div class="field">
-        <label>Encargado de cocina</label>
-        <input type="text" id="p-responsable" value="Manuel González" readonly
-          style="background:var(--crema-dark);color:var(--cafe-mid);font-weight:600;cursor:default;"/>
+        <label>Responsable <span class="req">*</span></label>
+        <select id="p-responsable">
+          <option value="">— Seleccionar —</option>
+          <option>Manuel González</option>
+          <option>Leticia Lindo</option>
+          <option>Staff</option>
+        </select>
       </div>
       <div class="field">
         <label>Turno <span class="req">*</span></label>
@@ -756,7 +760,7 @@ function cerrarModalProd(){ document.getElementById('modal-prod').classList.remo
 function resetFormProd(){
   ['p-local','p-producto','p-cantidad','p-obs'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('p-unidad').value='unidades';
-  // p-responsable es fijo (Manuel González), no se resetea
+  document.getElementById('p-responsable').value='';
   document.querySelectorAll('#chips-turno .chip').forEach(c=>c.classList.remove('selected'));
   turnoSel='';
 }

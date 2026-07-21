@@ -433,6 +433,7 @@ function setF(el,g){window._setF&&window._setF(el,g);}
 function renderPanelBajas(){window._renderPanelBajas&&window._renderPanelBajas();}
 function renderPanelProd(){window._renderPanelProd&&window._renderPanelProd();}
 function exportCSV(t){window._exportCSV&&window._exportCSV(t);}
+function guardar(){window._guardar&&window._guardar();}
 </script>
 
 <!-- FIREBASE -->
@@ -588,7 +589,7 @@ function confirmarBaja(){
   document.getElementById('modal-title').textContent='Confirmar baja';
   document.getElementById('modal-body').innerHTML=
     `<b>${prod}</b> — ${cant} ${unid}<br>Motivo: ${motivoSel}<br>${area} · ${local}<br>Reporta: ${enc}`;
-  document.getElementById('modal-ok').onclick=guardar;
+  document.getElementById('modal-ok').setAttribute('onclick','guardar()');
   document.getElementById('modal').classList.add('open');
 }
 
@@ -606,7 +607,7 @@ function confirmarProd(){
   document.getElementById('modal-title').textContent='Confirmar producción';
   document.getElementById('modal-body').innerHTML=
     `<b>${prod}</b> — ${cant} ${unid}<br>Turno: ${turnoSel}<br>${area} · ${local}<br>Responsable: ${enc}`;
-  document.getElementById('modal-ok').onclick=guardar;
+  document.getElementById('modal-ok').setAttribute('onclick','guardar()');
   document.getElementById('modal').classList.add('open');
 }
 
@@ -810,6 +811,7 @@ window._confirmarBaja=confirmarBaja;window._confirmarProd=confirmarProd;
 window._cerrarModal=cerrarModal;window._switchPanel=switchPanel;window._setF=setF;
 window._renderPanelBajas=renderPanelBajas;window._renderPanelProd=renderPanelProd;
 window._exportCSV=exportCSV;
+window._guardar=guardar;
 </script>
 </body>
 </html>

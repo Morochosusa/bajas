@@ -142,6 +142,8 @@
   <div class="nav-tabs">
     <button class="nav-tab active" id="tab-bajas" onclick="showPage('bajas')">Bajas</button>
     <button class="nav-tab" id="tab-prod" onclick="showPage('prod')">Producción</button>
+    <button class="nav-tab" id="tab-clock" onclick="showPage('clock')">⏰ Turno</button>
+    <button class="nav-tab" id="tab-tips" onclick="showPage('tips')">💵 Tips</button>
     <button class="nav-tab" id="tab-panel" onclick="pedirPIN()">Panel 🔒</button>
   </div>
 </nav>
@@ -284,6 +286,103 @@
         </div>
         <button class="btn btn-black" onclick="confirmarProd()">Registrar producción</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ CLOCK IN/OUT ═══ -->
+<div class="page" id="page-clock">
+  <div style="padding-top:10px">
+    <div class="section-head">
+      <h2>Marcar turno</h2>
+      <p>Ingresa tu código para registrar entrada o salida.</p>
+    </div>
+    <div class="card">
+      <div class="field">
+        <label>Local <span class="req">*</span></label>
+        <select id="ck-local" class="form-control" onchange="onClockLocal()">
+          <option value="">— Seleccionar local —</option>
+          <option>Orange</option>
+          <option>West Orange</option>
+          <option>Facility</option>
+        </select>
+      </div>
+      <div class="field" id="ck-codigo-field" style="display:none">
+        <label>Código de empleado <span class="req">*</span></label>
+        <input type="number" id="ck-codigo" class="form-control" placeholder="Ej: 1001"
+          oninput="buscarEmpleado()"/>
+      </div>
+      <!-- Empleado encontrado -->
+      <div id="ck-empleado-info" style="display:none;background:var(--gray-1);border-radius:10px;padding:14px;margin-bottom:14px;">
+        <div style="font-size:16px;font-weight:800;" id="ck-emp-nombre"></div>
+        <div style="font-size:12px;color:var(--gray-4);margin-top:2px;" id="ck-emp-area"></div>
+      </div>
+      <!-- Botones entrada/salida -->
+      <div id="ck-botones" style="display:none;gap:10px;display:none;">
+        <button class="btn btn-black" onclick="marcarTurno('entrada')" style="margin-bottom:10px;">
+          ✅ Marcar entrada
+        </button>
+        <button class="btn btn-outline" onclick="marcarTurno('salida')">
+          🚪 Marcar salida
+        </button>
+      </div>
+      <!-- Último registro -->
+      <div id="ck-ultimo" style="display:none;font-size:12px;color:var(--gray-4);margin-top:12px;text-align:center;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TIPS ═══ -->
+<div class="page" id="page-tips">
+  <div style="padding-top:10px">
+    <div class="section-head">
+      <h2>Registrar tips</h2>
+      <p>Total recaudado por el turno.</p>
+    </div>
+    <div class="card">
+      <div class="field">
+        <label>Local <span class="req">*</span></label>
+        <select id="tp-local" class="form-control">
+          <option value="">— Seleccionar local —</option>
+          <option>Orange</option>
+          <option>West Orange</option>
+          <option>Facility</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Encargado <span class="req">*</span></label>
+        <select id="tp-encargado" class="form-control">
+          <option value="">— Seleccionar —</option>
+          <option>Manuela González</option>
+          <option>Evelin</option>
+          <option>Yenifer Mayen</option>
+          <option>Staff 1 Café</option>
+          <option>Staff 2 Café</option>
+          <option>Staff 1 Bakery</option>
+          <option>Staff 2 Bakery</option>
+          <option>Encargado 1</option>
+          <option>Encargado 2</option>
+          <option>Encargado 3</option>
+          <option>Encargado 4</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Turno <span class="req">*</span></label>
+        <div class="chips" id="chips-turno-tips">
+          <button class="chip" data-val="Mañana" onclick="selChipTips(this)">☀️ Mañana</button>
+          <button class="chip" data-val="Tarde" onclick="selChipTips(this)">🌤 Tarde</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Total tips recaudados ($) <span class="req">*</span></label>
+        <input type="number" id="tp-total" class="form-control" placeholder="0.00" step="0.01" min="0"/>
+      </div>
+      <div class="field">
+        <label>Observación (opcional)</label>
+        <textarea id="tp-obs" class="form-control" placeholder="Notas del turno…"></textarea>
+      </div>
+      <button class="btn btn-black" onclick="confirmarTips()">Registrar tips</button>
     </div>
   </div>
 </div>
@@ -433,13 +532,19 @@ function setF(el,g){window._setF&&window._setF(el,g);}
 function renderPanelBajas(){window._renderPanelBajas&&window._renderPanelBajas();}
 function renderPanelProd(){window._renderPanelProd&&window._renderPanelProd();}
 function exportCSV(t){window._exportCSV&&window._exportCSV(t);}
+function onClockLocal(){window._onClockLocal&&window._onClockLocal();}
+function buscarEmpleado(){window._buscarEmpleado&&window._buscarEmpleado();}
+function marcarTurno(t){window._marcarTurno&&window._marcarTurno(t);}
+function selChipTips(el){window._selChipTips&&window._selChipTips(el);}
+function confirmarTips(){window._confirmarTips&&window._confirmarTips();}
+function guardarTips(){window._guardarTips&&window._guardarTips();}
 function guardar(){window._guardar&&window._guardar();}
 </script>
 
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp }
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, where, getDocs }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -516,7 +621,7 @@ function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
-  const map={bajas:'tab-bajas',prod:'tab-prod',panel:'tab-panel'};
+  const map={bajas:'tab-bajas',prod:'tab-prod',clock:'tab-clock',tips:'tab-tips',panel:'tab-panel'};
   document.getElementById(map[id])?.classList.add('active');
   if(id==='panel') renderPanelBajas();
 }
@@ -803,6 +908,133 @@ function exportCSV(tipo){
   a.download=`${tipo}-morochos-${new Date().toISOString().slice(0,10)}.csv`;a.click();
 }
 
+
+// ── CLOCK IN/OUT ──
+let empleados = [];
+let clockEmpleado = null;
+let turnoTipsSel = '';
+
+onSnapshot(query(collection(db,'mg_empleados'),orderBy('nombre')), snap=>{
+  empleados = snap.docs.map(d=>({id:d.id,...d.data()}));
+});
+
+function onClockLocal(){
+  const local = document.getElementById('ck-local').value;
+  document.getElementById('ck-codigo-field').style.display = local ? 'block' : 'none';
+  document.getElementById('ck-empleado-info').style.display = 'none';
+  document.getElementById('ck-botones').style.display = 'none';
+  document.getElementById('ck-ultimo').style.display = 'none';
+  document.getElementById('ck-codigo').value = '';
+  clockEmpleado = null;
+}
+
+function buscarEmpleado(){
+  const codigo = document.getElementById('ck-codigo').value.trim();
+  const local = document.getElementById('ck-local').value;
+  if(codigo.length < 3) {
+    document.getElementById('ck-empleado-info').style.display = 'none';
+    document.getElementById('ck-botones').style.display = 'none';
+    return;
+  }
+  const emp = empleados.find(e => e.codigo === codigo && e.local === local);
+  if(emp){
+    clockEmpleado = emp;
+    document.getElementById('ck-emp-nombre').textContent = emp.nombre;
+    document.getElementById('ck-emp-area').textContent = emp.area + ' · ' + emp.local;
+    document.getElementById('ck-empleado-info').style.display = 'block';
+    document.getElementById('ck-botones').style.display = 'flex';
+    document.getElementById('ck-botones').style.flexDirection = 'column';
+    // Check last record
+    checkUltimoRegistro(emp);
+  } else if(codigo.length >= 4){
+    clockEmpleado = null;
+    document.getElementById('ck-empleado-info').style.display = 'none';
+    document.getElementById('ck-botones').style.display = 'none';
+    showToast('⚠️ Código no encontrado en este local');
+  }
+}
+
+async function checkUltimoRegistro(emp){
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  const snap = await getDocs(query(
+    collection(db,'clock_records'),
+    where('empId','==',emp.id),
+    orderBy('fecha','desc')
+  ));
+  if(!snap.empty){
+    const ultimo = snap.docs[0].data();
+    const fecha = ultimo.fecha?.toDate ? ultimo.fecha.toDate() : new Date(ultimo.fecha);
+    const tipo = ultimo.tipo === 'entrada' ? '✅ Entrada' : '🚪 Salida';
+    document.getElementById('ck-ultimo').style.display = 'block';
+    document.getElementById('ck-ultimo').textContent =
+      'Último registro: ' + tipo + ' · ' + fecha.toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'});
+  }
+}
+
+async function marcarTurno(tipo){
+  if(!clockEmpleado){ showToast('⚠️ Selecciona un empleado'); return; }
+  try{
+    await addDoc(collection(db,'clock_records'),{
+      empId: clockEmpleado.id,
+      nombre: clockEmpleado.nombre,
+      local: clockEmpleado.local,
+      area: clockEmpleado.area,
+      codigo: clockEmpleado.codigo,
+      tipo, fecha: serverTimestamp()
+    });
+    showToast(tipo==='entrada' ? '✅ Entrada registrada' : '🚪 Salida registrada');
+    // Reset
+    document.getElementById('ck-local').value = '';
+    document.getElementById('ck-codigo').value = '';
+    document.getElementById('ck-codigo-field').style.display = 'none';
+    document.getElementById('ck-empleado-info').style.display = 'none';
+    document.getElementById('ck-botones').style.display = 'none';
+    document.getElementById('ck-ultimo').style.display = 'none';
+    clockEmpleado = null;
+  } catch(e){ showToast('❌ Error. Revisa conexión.'); console.error(e); }
+}
+
+// ── TIPS ──
+function selChipTips(el){
+  document.querySelectorAll('#chips-turno-tips .chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  turnoTipsSel = el.dataset.val;
+}
+
+function confirmarTips(){
+  const local = document.getElementById('tp-local').value;
+  const enc = document.getElementById('tp-encargado').value;
+  const total = parseFloat(document.getElementById('tp-total').value);
+  const obs = document.getElementById('tp-obs').value.trim();
+  if(!local||!enc||!turnoTipsSel||!total){ showToast('⚠️ Completa todos los campos'); return; }
+  pendiente = {tipo:'tips', local, enc, turno:turnoTipsSel, total, obs};
+  document.getElementById('modal-title').textContent = 'Confirmar tips';
+  document.getElementById('modal-body').innerHTML =
+    `Total: <b>$${total.toFixed(2)}</b><br>Turno: ${turnoTipsSel}<br>Local: ${local}<br>Encargado: ${enc}`;
+  document.getElementById('modal-ok').setAttribute('onclick','guardarTips()');
+  document.getElementById('modal').classList.add('open');
+}
+
+async function guardarTips(){
+  if(!pendiente) return;
+  const btn = document.getElementById('modal-ok');
+  btn.disabled=true; btn.textContent='Guardando…';
+  try{
+    await addDoc(collection(db,'tips'),{
+      local: pendiente.local, enc: pendiente.enc,
+      turno: pendiente.turno, total: pendiente.total,
+      obs: pendiente.obs, fecha: serverTimestamp()
+    });
+    cerrarModal();
+    ['tp-local','tp-encargado','tp-total','tp-obs'].forEach(id=>document.getElementById(id).value='');
+    document.querySelectorAll('#chips-turno-tips .chip').forEach(c=>c.classList.remove('selected'));
+    turnoTipsSel='';
+    showToast('✅ Tips registrados');
+  } catch(e){ showToast('❌ Error. Revisa conexión.'); console.error(e); }
+  btn.disabled=false; btn.textContent='Confirmar';
+  pendiente=null;
+}
+
 // ── EXPONER ──
 window._showPage=showPage;window._pedirPIN=pedirPIN;window._verificarPIN=verificarPIN;
 window._cerrarPIN=cerrarPIN;window._onLocalChange=onLocalChange;window._onEncargadoChange=onEncargadoChange;
@@ -811,6 +1043,9 @@ window._confirmarBaja=confirmarBaja;window._confirmarProd=confirmarProd;
 window._cerrarModal=cerrarModal;window._switchPanel=switchPanel;window._setF=setF;
 window._renderPanelBajas=renderPanelBajas;window._renderPanelProd=renderPanelProd;
 window._exportCSV=exportCSV;
+window._onClockLocal=onClockLocal;window._buscarEmpleado=buscarEmpleado;
+window._marcarTurno=marcarTurno;window._selChipTips=selChipTips;
+window._confirmarTips=confirmarTips;window._guardarTips=guardarTips;
 window._guardar=guardar;
 </script>
 </body>

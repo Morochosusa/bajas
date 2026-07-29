@@ -411,7 +411,7 @@
       <div class="filter-bar" id="f-area-b">
         <button class="fchip active" data-v="todos" onclick="setF(this,'area-b')">Todas</button>
         <button class="fchip" data-v="Cocina" onclick="setF(this,'area-b')">Cocina</button>
-        <button class="fchip" data-v="Jugos" onclick="setF(this,'area-b')">Jugos</button>
+        <button class="fchip" data-v="Bebidas" onclick="setF(this,'area-b')">Bebidas</button>
         <button class="fchip" data-v="Cafetería" onclick="setF(this,'area-b')">Cafetería</button>
         <button class="fchip" data-v="Bakery" onclick="setF(this,'area-b')">Bakery</button>
       </div>
@@ -565,29 +565,53 @@ let bLocal='todos', bArea='todos', pLocal='todos';
 
 // ── ESTRUCTURA: encargado → área → productos ──
 const STAFF = {
-  // BAJAS
   bajas: {
-    'Manuela González': { area:'Cocina',    icon:'🍳', prods:['Empanaditas carne','Empanaditas pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
-    'Evelin':           { area:'Cocina',    icon:'🍳', prods:['Empanaditas carne','Empanaditas pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
-    'Yenifer Mayen':    { area:'Jugos',     icon:'🥤', prods:['Jugo','Batido','Smoothie','Extracto','Manzana verde','Manzana roja','Pepino','Naranja','Piña picada','Jengibre','Espinaca','Kale'] },
-    'Staff 1 Café':     { area:'Cafetería', icon:'☕', prods:['Café filtrado','Bebida 10oz','Bebida 16oz','Morocho','Chocolate','Avena piña','Avena en leche','Avena piña fría 16oz','Gelatina','Cheesecake','Tiramisú'] },
-    'Staff 2 Café':     { area:'Cafetería', icon:'☕', prods:['Café filtrado','Bebida 10oz','Bebida 16oz','Morocho','Chocolate','Avena piña','Avena en leche','Avena piña fría 16oz','Gelatina','Cheesecake','Tiramisú'] },
-    'Staff 1 Bakery':   { area:'Bakery',    icon:'🥐', prods:['Pan chola','Cacho con queso','Jamón y queso','Arepa','Pan de bono','Cachito','Pan de leche','Pan de chocolate','Sandwich frío','Muffin'] },
-    'Staff 2 Bakery':   { area:'Bakery',    icon:'🥐', prods:['Pan chola','Cacho con queso','Jamón y queso','Arepa','Pan de bono','Cachito','Pan de leche','Pan de chocolate','Sandwich frío','Muffin'] },
-    'Encargado 1':      { area:'Cocina',    icon:'🍳', prods:['Empanaditas carne','Empanaditas pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
-    'Encargado 2':      { area:'Jugos',     icon:'🥤', prods:['Jugo','Batido','Smoothie','Extracto','Manzana verde','Manzana roja','Pepino','Naranja','Piña picada','Jengibre','Espinaca','Kale'] },
-    'Encargado 3':      { area:'Cafetería', icon:'☕', prods:['Café filtrado','Bebida 10oz','Bebida 16oz','Morocho','Chocolate','Avena piña','Avena en leche','Avena piña fría 16oz','Gelatina','Cheesecake','Tiramisú'] },
-    'Encargado 4':      { area:'Bakery',    icon:'🥐', prods:['Pan chola','Cacho con queso','Jamón y queso','Arepa','Pan de bono','Cachito','Pan de leche','Pan de chocolate','Sandwich frío','Muffin'] },
+    // COCINA
+    'Manuela González':  { area:'Cocina',    turno:'Mañana', icon:'🍳',
+      prods:['Empanada carne','Empanada pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
+    'Turno tarde Cocina':{ area:'Cocina',    turno:'Tarde',  icon:'🍳',
+      prods:['Empanada carne','Empanada pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
+    // CAFETERÍA 1
+    'Verónica Bermejo':  { area:'Cafetería', turno:'Mañana', icon:'☕',
+      prods:['Morocho 10oz','Morocho 16oz','Chocolate 10oz','Chocolate 16oz','Avena piña 10oz','Avena piña 16oz','Avena leche 10oz','Avena leche 16oz','Café filtrado','Morocho','Chocolate','Avena piña','Avena leche','Avena fría 16oz','Gelatina','Cheesecake','Tiramisú','Tamal','Humitas','Ensalada'] },
+    'Cristel Bonilla':   { area:'Cafetería', turno:'Tarde',  icon:'☕',
+      prods:['Morocho 10oz','Morocho 16oz','Chocolate 10oz','Chocolate 16oz','Avena piña 10oz','Avena piña 16oz','Avena leche 10oz','Avena leche 16oz','Café filtrado','Morocho','Chocolate','Avena piña','Avena leche','Avena fría 16oz','Gelatina','Cheesecake','Tiramisú','Tamal','Humitas','Ensalada'] },
+    // BEBIDAS (Café y Jugos)
+    'Beatriz':           { area:'Bebidas',   turno:'Mañana', icon:'🥤',
+      prods:['Jugo','Batido','Smoothie','Extracto','Manzana verde','Manzana roja','Pepino','Naranja','Piña picada','Jengibre','Espinaca','Kale','Capuchino','Latte','Moccacino'] },
+    'Yenifer Mayen':     { area:'Bebidas',   turno:'Tarde',  icon:'🥤',
+      prods:['Jugo','Batido','Smoothie','Extracto','Manzana verde','Manzana roja','Pepino','Naranja','Piña picada','Jengibre','Espinaca','Kale','Capuchino','Latte','Moccacino'] },
+    // BAKERY
+    'Abner Acosta':      { area:'Bakery',    turno:'Mañana', icon:'🥐',
+      prods:['Pan chola','Cacho con queso','Jamón y queso','Arepa','Pan de bono','Cachito','Pan de leche','Pan de chocolate','Sandwich jamón y queso','Muffin'] },
+    'Alexandra Morocho': { area:'Bakery',    turno:'Tarde',  icon:'🥐',
+      prods:['Pan chola','Cacho con queso','Jamón y queso','Arepa','Pan de bono','Cachito','Pan de leche','Pan de chocolate','Sandwich jamón y queso','Muffin'] },
   },
-  // PRODUCCIÓN — solo Cocina
   prod: {
-    'Manuela González': { area:'Cocina', icon:'🍳', prods:['Morocho','Avena con piña','Chocolate','Avena con leche','Empanada colombiana carne','Empanada colombiana pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
-    'Evelin':           { area:'Cocina', icon:'🍳', prods:['Morocho','Avena con piña','Chocolate','Avena con leche','Empanada colombiana carne','Empanada colombiana pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
-    'Encargado 1':      { area:'Cocina', icon:'🍳', prods:['Morocho','Avena con piña','Chocolate','Avena con leche','Empanada colombiana carne','Empanada colombiana pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
+    // COCINA
+    'Manuela González':  { area:'Cocina',    turno:'Mañana', icon:'🍳',
+      prods:['Morocho','Avena con piña','Chocolate','Avena con leche','Empanada carne','Empanada pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
+    'Turno tarde Cocina':{ area:'Cocina',    turno:'Tarde',  icon:'🍳',
+      prods:['Morocho','Avena con piña','Chocolate','Avena con leche','Empanada carne','Empanada pollo','Empanada verde','Bolón','Empanada de viento','Maduro con queso','Tortilla de tiesto','Tortilla de yuca'] },
+    // CAFETERÍA 1
+    'Verónica Bermejo':  { area:'Cafetería', turno:'Mañana', icon:'☕',
+      prods:['Gelatina','Avena fría 16oz'] },
+    'Cristel Bonilla':   { area:'Cafetería', turno:'Tarde',  icon:'☕',
+      prods:['Gelatina','Avena fría 16oz'] },
+    // BEBIDAS
+    'Beatriz':           { area:'Bebidas',   turno:'Mañana', icon:'🥤',
+      prods:['Muesli','Granola con yogurt'] },
+    'Yenifer Mayen':     { area:'Bebidas',   turno:'Tarde',  icon:'🥤',
+      prods:['Muesli','Granola con yogurt'] },
+    // BAKERY
+    'Abner Acosta':      { area:'Bakery',    turno:'Mañana', icon:'🥐',
+      prods:['Sandwich jamón y queso','Lechuga','Pastel de piña','Pastel de fresa','Muffin','Arepa'] },
+    'Alexandra Morocho': { area:'Bakery',    turno:'Tarde',  icon:'🥐',
+      prods:['Sandwich jamón y queso','Lechuga','Pastel de piña','Pastel de fresa','Muffin','Arepa'] },
   }
 };
 
-const AREA_BADGE={'Cocina':'badge-amber','Jugos':'badge-blue','Cafetería':'badge-green','Bakery':'badge-purple'};
+const AREA_BADGE={'Cocina':'badge-amber','Bebidas':'badge-blue','Cafetería':'badge-green','Bakery':'badge-purple'};
 const MOTIVO_BADGE={'Receta mal preparada':'badge-red','Error pedido cliente':'badge-amber','Error pedido empleado':'badge-amber','Vencido / caducado':'badge-amber','Derrame / accidente':'badge-blue','Mala calidad':'badge-gray','Robo / faltante':'badge-red','Otro':'badge-gray'};
 
 // ── FIRESTORE ──
@@ -648,7 +672,7 @@ function onEncargadoChange(t){
   if(!info){document.getElementById(t+'-area-wrap').style.display='none';document.getElementById(t+'-form').style.display='none';return;}
 
   // Mostrar área
-  document.getElementById(t+'-area-tag').innerHTML=`${info.icon} <span>${info.area}</span>`;
+  document.getElementById(t+'-area-tag').innerHTML=`${info.icon} <span>${info.area}</span>${info.turno ? `<span style='font-size:11px;color:var(--gray-4);margin-left:8px;font-weight:500;'>${info.turno === 'Mañana' ? '☀️ Mañana' : '🌤 Tarde'}</span>` : ''}`;
   document.getElementById(t+'-area-wrap').style.display='block';
 
   // Cargar productos
